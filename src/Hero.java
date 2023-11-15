@@ -40,6 +40,29 @@ public class Hero {
         }
     }
 
+    public Coordinates checkRoad(char command) {
+
+        int tempX = position.x;
+        int tempY = position.y;
+
+        switch(command) {
+            case 'w':
+                tempX -= 1;
+                break;
+            case 's':
+                tempX += 1;
+                break;
+            case 'a':
+                tempY -= 1;
+                break;
+            case 'd':
+                tempY += 1;
+                break;
+        }
+
+        return new Coordinates(tempX, tempY);
+    }
+
     //charMatrix[rowRandom][colRandom] = 'H';
 
 }

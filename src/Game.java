@@ -37,11 +37,16 @@ public class Game {
 
     public void handleCommand(String input) {
         char command = input.charAt(0);
+        Coordinates futureMove= hero.checkRoad(command);
 
-        charMatrix[hero.position.x][hero.position.y] = ' ';
+        if (charMatrix[futureMove.x][futureMove.y] != '+') {
 
-        hero.moveHero(command);
+            charMatrix[hero.position.x][hero.position.y] = ' ';
+            hero.moveHero(command);
+            charMatrix[hero.position.x][hero.position.y] = 'H';
+        }
 
-        charMatrix[hero.position.x][hero.position.y] = 'H';
+
+
     }
 }
