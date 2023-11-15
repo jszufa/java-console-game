@@ -4,11 +4,11 @@ public class Hero {
     Random generator = new Random();
     public Coordinates position = new Coordinates(0, 0);
 
-    public Hero(int height) {
-        setPosition(height);
+    public Hero(int height, char[][] matrix) {
+        setPosition(height, matrix);
     }
 
-    private void setPosition(int height) {
+    private void setPosition(int height, char[][] matrix) {
         int rowIndex;
         do  {
             rowIndex = generator.nextInt(height-1);
@@ -21,6 +21,11 @@ public class Hero {
 
         position.x = rowIndex;
         position.y = colIndex;
+
+        //check if the field is free
+        if (matrix[position.x][position.y] != ' ' && matrix[position.x][position.y]  != '\0'){
+            setPosition(height, matrix);
+        }
     }
 
     public void moveHero(char command) {
