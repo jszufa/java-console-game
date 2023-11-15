@@ -12,6 +12,7 @@ public class Main {
             game.printCharArray();
             System.out.print("Enter command: ");
             input = scanner.next();
+            game.handleCommand(input);
         }
     }
 

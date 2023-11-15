@@ -4,13 +4,12 @@ public class Game {
 
     int height = 10;
     char[][] charMatrix = new char[height][height];
-    Random generator = new Random();
+    Hero hero = new Hero(height);
 
-    //warto byłoby zapamiętać pozycję H
 
     public Game() {
         createFrame();
-        setHero();
+        charMatrix[hero.position.x][hero.position.y] = 'H';
     }
 
     public void createFrame() {
@@ -26,20 +25,6 @@ public class Game {
         }
     }
 
-    public void setHero() {
-
-        int rowRandom;
-        do  {
-            rowRandom = generator.nextInt(height-1);
-        } while (rowRandom == 0);
-
-        int colRandom;
-        do  {
-            colRandom = generator.nextInt(height-1);
-        } while (colRandom == 0);
-
-        charMatrix[rowRandom][colRandom] = 'H';
-    }
 
     public void printCharArray() {
         for (char[] row : charMatrix) {
@@ -50,7 +35,13 @@ public class Game {
         }
     }
 
-    //handle command -można użyć switchy case:...
+    public void handleCommand(String input) {
+        char command = input.charAt(0);
 
+        charMatrix[hero.position.x][hero.position.y] = ' ';
 
+        hero.moveHero(command);
+
+        charMatrix[hero.position.x][hero.position.y] = 'H';
+    }
 }
