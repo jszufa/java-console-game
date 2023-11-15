@@ -30,12 +30,12 @@ public class Game {
 
         int rowRandom;
         do  {
-            rowRandom = generator.nextInt(height);
+            rowRandom = generator.nextInt(height-1);
         } while (rowRandom == 0);
 
         int colRandom;
         do  {
-            colRandom = generator.nextInt(height);
+            colRandom = generator.nextInt(height-1);
         } while (colRandom == 0);
 
         charMatrix[rowRandom][colRandom] = 'H';
