@@ -1,8 +1,25 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
         var game = new Game();
-        game.printCharArray();
+        String input = "";
+
+        while (!input.toLowerCase().equals("quit")) {
+            clearConsole();
+            game.printCharArray();
+            System.out.print("Enter command: ");
+            input = scanner.next();
+        }
+    }
+
+    public static void clearConsole() {
+        int linesToClear = 50;
+        for (int i = 0; i < linesToClear; i++) {
+            System.out.println();
+        }
     }
 
 }
