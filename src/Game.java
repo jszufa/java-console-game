@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class Game {
 
     int height = 10;
@@ -41,11 +39,19 @@ public class Game {
         char command = input.charAt(0);
         Coordinates futureMove= hero.checkRoad(command);
 
-        if (charMatrix[futureMove.x][futureMove.y] != '+') {
+        //stone
+        if(charMatrix[futureMove.x][futureMove.y] == 'O'){
+            Coordinates futureStoneMove = stone.checkRoad(command);
+            if (charMatrix[futureStoneMove.x][futureStoneMove.y] != '+'){
 
-            charMatrix[hero.position.x][hero.position.y] = ' ';
-            hero.moveHero(command);
-            charMatrix[hero.position.x][hero.position.y] = 'H';
+                stone.move(command, charMatrix);
+                hero.move(command, charMatrix);
+            }
+        }
+        //wall
+        else if (charMatrix[futureMove.x][futureMove.y] != '+') {
+
+            hero.move(command, charMatrix);
         }
 
 

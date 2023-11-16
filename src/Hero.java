@@ -3,12 +3,14 @@ import java.util.Random;
 public class Hero {
     Random generator = new Random();
     public Coordinates position = new Coordinates(0, 0);
+    char symbol;
 
     public Hero(int height, char[][] matrix) {
-        setPosition(height, matrix);
+        setInitialPosition(height, matrix);
+        symbol = 'H';
     }
 
-    private void setPosition(int height, char[][] matrix) {
+    private void setInitialPosition(int height, char[][] matrix) {
         int rowIndex;
         do  {
             rowIndex = generator.nextInt(height-1);
@@ -24,11 +26,21 @@ public class Hero {
 
         //check if the field is free
         if (matrix[position.x][position.y] != ' ' && matrix[position.x][position.y]  != '\0'){
-            setPosition(height, matrix);
+            setInitialPosition(height, matrix);
         }
     }
 
-    public void moveHero(char command) {
+    public void newPosition (char[][] matrix) {
+        matrix[position.x][position.y] = symbol;
+    }
+
+    public void clearPosition (char[][] matrix) {
+        matrix[position.x][position.y] = ' ';
+    }
+
+    public void move(char command, char[][] matrix) {
+        this.clearPosition(matrix);
+
         switch(command) {
             case 'w':
                 position.x -= 1;
@@ -43,6 +55,7 @@ public class Hero {
                 position.y += 1;
                 break;
         }
+        this.newPosition(matrix);
     }
 
     public Coordinates checkRoad(char command) {
@@ -67,7 +80,4 @@ public class Hero {
 
         return new Coordinates(tempX, tempY);
     }
-
-    //charMatrix[rowRandom][colRandom] = 'H';
-
 }
