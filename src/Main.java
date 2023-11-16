@@ -4,12 +4,27 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        var game = new Game();
         String input = "";
+        var game = new Game();
 
-        while (!input.toLowerCase().equals("quit") && !game.victory) {
+        while (!input.toLowerCase().equals("quit")) {
+
+            if (input.toLowerCase().equals("reset")){
+                game = new Game();
+            }
+
             clearConsole();
             game.printCharArray();
+
+            if (game.victory) {
+                System.out.print("------VICTORY!--------");
+                break;
+            }
+            else if (game.gameOver) {
+                game.printGameOver();
+                break;
+            }
+
             System.out.print("Enter command: ");
             input = scanner.next();
             game.handleCommand(input);
