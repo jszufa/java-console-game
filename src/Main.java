@@ -7,7 +7,7 @@ public class Main {
         var game = new Game();
         String input = "";
 
-        while (!input.toLowerCase().equals("quit")) {
+        while (!input.toLowerCase().equals("quit") && !game.victory) {
             clearConsole();
             game.printCharArray();
             System.out.print("Enter command: ");

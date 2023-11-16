@@ -1,15 +1,19 @@
 public class Game {
 
-    int height = 10;
-    char[][] charMatrix = new char[height][height];
-    Hero hero = new Hero(height, charMatrix, 'H');
-    Stone stone = new Stone(height, charMatrix, 'O');
+    int height = 6;
+    char[][] map = new char[height][height];
+
+    boolean victory = false;
+    Hero hero = new Hero(height, map, 'H');
+    Stone stone = new Stone(height, map, 'O');
+    Hole hole = new Hole(height, map, 'X');
 
 
     public Game() {
         createFrame();
-        hero.newPosition(charMatrix);
-        stone.newPosition(charMatrix);
+        hero.newPosition(map);
+        stone.newPosition(map);
+        hole.newPosition(map);
     }
 
     public void createFrame() {
@@ -17,17 +21,17 @@ public class Game {
             for (int j = 0; j < height; j++) {
 
                 if (i == 0 || i == height - 1 || j == 0 || j == height - 1)
-                    charMatrix[i][j] = '+';
+                    map[i][j] = '+';
 
                 else
-                    charMatrix[i][j] = ' ';
+                    map[i][j] = ' ';
             }
         }
     }
 
 
     public void printCharArray() {
-        for (char[] row : charMatrix) {
+        for (char[] row : map) {
             for (char element : row) {
                 System.out.print(element + "  ");
             }
@@ -37,23 +41,29 @@ public class Game {
 
     public void handleCommand(String input) {
         char command = input.charAt(0);
-        Coordinates futureMove= hero.checkRoad(command);
+        Coordinates futureMove = hero.checkRoad(command);
 
         //stone
-        if(charMatrix[futureMove.x][futureMove.y] == 'O'){
+        if (map[futureMove.x][futureMove.y] == 'O') {
             Coordinates futureStoneMove = stone.checkRoad(command);
-            if (charMatrix[futureStoneMove.x][futureStoneMove.y] != '+'){
+            if (map[futureStoneMove.x][futureStoneMove.y] == 'X') {
+                stone.move(command, map);
+                hero.move(command, map);
+                victory = true;
+                System.out.print("------VICTORY!--------");
+            }
 
-                stone.move(command, charMatrix);
-                hero.move(command, charMatrix);
+            if (map[futureStoneMove.x][futureStoneMove.y] != '+') {
+
+                stone.move(command, map);
+                hero.move(command, map);
             }
         }
         //wall
-        else if (charMatrix[futureMove.x][futureMove.y] != '+') {
+        else if (map[futureMove.x][futureMove.y] != '+') {
 
-            hero.move(command, charMatrix);
+            hero.move(command, map);
         }
-
 
 
     }

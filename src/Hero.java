@@ -28,6 +28,8 @@ public class Hero {
         if (matrix[position.x][position.y] != ' ' && matrix[position.x][position.y] != '\0') {
             setInitialPosition(height, matrix);
         }
+        //it gets cleared when drawing the frame, but still it's a placeholder for initializing
+        matrix[position.x][position.y] = symbol;
     }
 
     public void newPosition(char[][] matrix) {
