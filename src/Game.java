@@ -2,14 +2,14 @@ public class Game {
 
     int height = 10;
     char[][] charMatrix = new char[height][height];
-    Hero hero = new Hero(height, charMatrix);
-    Stone stone = new Stone(height, charMatrix);
+    Hero hero = new Hero(height, charMatrix, 'H');
+    Stone stone = new Stone(height, charMatrix, 'O');
 
 
     public Game() {
         createFrame();
-        charMatrix[hero.position.x][hero.position.y] = 'H';
-        charMatrix[stone.position.x][stone.position.y] = 'O';
+        hero.newPosition(charMatrix);
+        stone.newPosition(charMatrix);
     }
 
     public void createFrame() {
