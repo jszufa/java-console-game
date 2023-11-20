@@ -5,7 +5,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         String input = "";
-        var game = new Game();
 
         var level1 = new Level("Level 1");
         var level2 = new Level("Level 2");
@@ -16,37 +15,38 @@ public class Main {
         outerloop:
         for (Level level : levels) {
 
-            while (!level.victory && !level.gameOver) {
+            while (!level.game.victory && !level.game.gameOver) {
                 while (!input.toLowerCase().equals("quit")) {
 
                     if (input.toLowerCase().equals("reset")) {
-                        //tutaj będzie inaczej
-                        level = new Level(level.label);
+                        level.resetLevel();
+                        System.out.println(level.hero.initialPosition.x);
+                        System.out.println(level.hero.initialPosition.y);
                     }
 
                     clearConsole();
                     System.out.println(level.label);
                     System.out.println();
-                    level.printCharArray();
+                    level.game.printCharArray();
 
 
-                    if (game.victory) {
+                    if (level.game.victory) {
                         System.out.print("------VICTORY!--------");
                         break;
-                    } else if (game.gameOver) {
-                        game.printGameOver();
+                    } else if (level.game.gameOver) {
+                        level.game.printGameOver();
                         break;
                     }
 
                     System.out.print("Enter command: ");
                     input = scanner.next();
-                    level.handleCommand(input);
+                    level.game.handleCommand(input, level.hero, level.stone);
 
-                    if (level.victory) {
+                    if (level.game.victory) {
                         System.out.print("------VICTORY!--------");
                         break;
-                    } else if (level.gameOver) {
-                        game.printGameOver();
+                    } else if (level.game.gameOver) {
+                        level.game.printGameOver();
                         break outerloop;
                     }
                 }

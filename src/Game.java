@@ -1,22 +1,27 @@
 public class Game {
-
-    int height = 6;
-    char[][] map = new char[height][height];
-
     boolean victory = false;
     boolean gameOver = false;
-    Hero hero = new Hero(height, map, 'H');
-    Stone stone = new Stone(height, map, 'O');
-    Hole hole = new Hole(height, map, 'X');
-    Trap trap = new Trap(height, map, '8');
 
+    int height;
+    char[][] map;
 
-    public Game() {
+    public Game(
+            Hero hero,
+            Stone stone,
+            Hole hole,
+            Trap trap,
+            int height,
+            char[][] map
+    ) {
+        this.height = height;
+        this.map = map;
+
         createFrame();
         hero.newPosition(map, hero.position, hero.symbol);
         stone.newPosition(map, stone.position, stone.symbol);
         hole.newPosition(map, hole.position, hole.symbol);
         trap.newPosition(map, trap.position, trap.symbol);
+
     }
 
     public void createFrame() {
@@ -43,8 +48,7 @@ public class Game {
     }
 
 
-
-    public void handleCommand(String input) {
+    public void handleCommand(String input, Hero hero, Stone stone) {
         char command = input.charAt(0);
         Coordinates futureMove = hero.checkRoad(command, hero.position);
 
@@ -55,13 +59,11 @@ public class Game {
                 stone.move(command, map, stone.position, stone.symbol);
                 hero.move(command, map, hero.position, hero.symbol);
                 victory = true;
-            }
-            else if (map[futureStoneMove.x][futureStoneMove.y] == '8') {
+            } else if (map[futureStoneMove.x][futureStoneMove.y] == '8') {
                 stone.move(command, map, stone.position, stone.symbol);
                 hero.move(command, map, hero.position, hero.symbol);
                 gameOver = true;
-            }
-            else if (map[futureStoneMove.x][futureStoneMove.y] != '+') {
+            } else if (map[futureStoneMove.x][futureStoneMove.y] != '+') {
 
                 stone.move(command, map, stone.position, stone.symbol);
                 hero.move(command, map, hero.position, hero.symbol);
