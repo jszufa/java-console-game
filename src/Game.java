@@ -13,10 +13,10 @@ public class Game {
 
     public Game() {
         createFrame();
-        hero.newPosition(map);
-        stone.newPosition(map);
-        hole.newPosition(map);
-        trap.newPosition(map);
+        hero.newPosition(map, hero.position, hero.symbol);
+        stone.newPosition(map, stone.position, stone.symbol);
+        hole.newPosition(map, hole.position, hole.symbol);
+        trap.newPosition(map, trap.position, trap.symbol);
     }
 
     public void createFrame() {
@@ -46,38 +46,38 @@ public class Game {
 
     public void handleCommand(String input) {
         char command = input.charAt(0);
-        Coordinates futureMove = hero.checkRoad(command);
+        Coordinates futureMove = hero.checkRoad(command, hero.position);
 
         //stone
         if (map[futureMove.x][futureMove.y] == 'O') {
-            Coordinates futureStoneMove = stone.checkRoad(command);
+            Coordinates futureStoneMove = stone.checkRoad(command, stone.position);
             if (map[futureStoneMove.x][futureStoneMove.y] == 'X') {
-                stone.move(command, map);
-                hero.move(command, map);
+                stone.move(command, map, stone.position, stone.symbol);
+                hero.move(command, map, hero.position, hero.symbol);
                 victory = true;
             }
             else if (map[futureStoneMove.x][futureStoneMove.y] == '8') {
-                stone.move(command, map);
-                hero.move(command, map);
+                stone.move(command, map, stone.position, stone.symbol);
+                hero.move(command, map, hero.position, hero.symbol);
                 gameOver = true;
             }
             else if (map[futureStoneMove.x][futureStoneMove.y] != '+') {
 
-                stone.move(command, map);
-                hero.move(command, map);
+                stone.move(command, map, stone.position, stone.symbol);
+                hero.move(command, map, hero.position, hero.symbol);
             }
         }
 
         //hole or trap
         else if (map[futureMove.x][futureMove.y] == 'X' || map[futureMove.x][futureMove.y] == '8') {
-            hero.move(command, map);
+            hero.move(command, map, hero.position, hero.symbol);
             gameOver = true;
         }
 
         //wall (last condition)
         else if (map[futureMove.x][futureMove.y] != '+') {
 
-            hero.move(command, map);
+            hero.move(command, map, hero.position, hero.symbol);
         }
     }
 

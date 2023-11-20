@@ -8,7 +8,7 @@ public class Stone extends Hero {
     }
 
     //stone needs a distance from wall
-    private void setInitialPosition(int height, char[][] matrix) {
+    public void setInitialPosition(int height, char[][] matrix) {
         int rowIndex;
         do {
             rowIndex = generator.nextInt(height - 2);
