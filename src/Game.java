@@ -24,7 +24,14 @@ public class Game {
 
     }
 
+    //wyrzucić to stąd - za dużo zależności...
+    //może zrobić statyczną
     public void createFrame() {
+
+        if (height < 6) {
+            throw new IllegalArgumentException("Height must be 6 or greater.");
+        }
+
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < height; j++) {
 
