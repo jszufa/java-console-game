@@ -13,6 +13,11 @@ public class Token implements Item {
 
     @Override
     public void setInitialPosition(int height, char[][] matrix) {
+
+        if (height < 6) {
+                throw new IllegalArgumentException("Height must be 6 or greater");
+            }
+
         int rowIndex;
         do {
             rowIndex = generator.nextInt(height - 1);
@@ -30,7 +35,7 @@ public class Token implements Item {
         if (matrix[position.x][position.y] != ' ' && matrix[position.x][position.y] != '\0') {
             setInitialPosition(height, matrix);
         }
-        //it gets cleared when drawing the frame, but still it's a placeholder for initializing
+
         matrix[position.x][position.y] = symbol;
         this.initialPosition = new Coordinates(position.x, position.y);
     }
