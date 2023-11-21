@@ -1,7 +1,7 @@
 public class Level {
 
     String label;
-    int height = 6;
+    int height = 20; //Enter number between 6 and 20
     char[][] map = createEmptyMap(height);
     Game game;
 
@@ -33,6 +33,11 @@ public class Level {
     }
 
     public static char[][] createEmptyMap(int height) {
+
+        if (height < 6 || height > 20) {
+            throw new IllegalArgumentException("Height must be greater than 5 and smaller than 21");
+        }
+
         char[][] map = new char[height][height];
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < height; j++) {

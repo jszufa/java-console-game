@@ -6,10 +6,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class WallsTest {
 
     @Test
-    void createFrameTest() {
+    void setInitialPositionWithLowHeight() {
         int height = 5;
         char[][] map = new char[height][height];
 
         assertThrows(IllegalArgumentException.class , () -> new Walls(height, map, 0, '+'));
+    }
+
+    void setInitialPositionWithBigHeight() {
+        //Arrange
+        int height = 5;
+        char[][] map = new char[height][height];
+
+
     }
 }

@@ -16,10 +16,6 @@ public class Walls {
 
     public void setInitialPosition(int height, char[][] map) {
 
-        if (height < 6) {
-            throw new IllegalArgumentException("Height must be 6 or greater.");
-        }
-
         //Frame
         int wallCounter = 0;
 
@@ -42,9 +38,9 @@ public class Walls {
         }
     }
 
-    private int calculateExpectedWallCount(int height, int randomWalls) {
+    private int calculateExpectedWallCount(int height, int randomWallsCount) {
         int frame = (height - 1) * 4;
-        return frame + randomWalls;
+        return frame + randomWallsCount;
     }
 
 }
