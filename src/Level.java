@@ -2,7 +2,7 @@ public class Level {
 
     String label;
     int height = 6;
-    char[][] map = new char[height][height];
+    char[][] map = createEmptyMap(height);
     Game game;
 
     //this could be also done by "createGame" method
@@ -12,16 +12,10 @@ public class Level {
     Hole hole = new Hole(height, map, 'X');
     Trap trap = new Trap(height, map, '8');
 
-    //metoda set initial postion mogłaby też zwracać initial postion i zapisywać ją w levelu, albo każdy obiekt mógłby mieć swoje initial position w dane grze. (no bo u mnie itemy mają swoje współrzędne)
 
     public Level(String label) {
         this.label = label;
         this.game = new Game(hero, stone, hole, trap, walls, height, map);
-
-        //CODE HERE
-        //SAVE INITIAL SETTING
-        //to powinien być zestaw współrzędnych, tak żeby kiedy przekaże się ten zestaw w konstruktorze levelu, to powstanie gotowy level
-        //może przeładować konstruktor tutaj albo w game??
     }
 
     public void resetLevel() {
@@ -37,4 +31,15 @@ public class Level {
 
         }
     }
+
+    public static char[][] createEmptyMap(int height) {
+        char[][] map = new char[height][height];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < height; j++) {
+                map[i][j] = ' ';
+            }
+        }
+        return map;
+    }
 }
+

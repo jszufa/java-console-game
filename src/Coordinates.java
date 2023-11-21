@@ -6,4 +6,10 @@ public class Coordinates {
         this.x = x;
         this.y = y;
     }
+
+    //overload
+    public Coordinates (Coordinates coordinatesToCopy) {
+        this.x = coordinatesToCopy.x;
+        this.y = coordinatesToCopy.y;
+    }
 }

@@ -16,38 +16,9 @@ public class Game {
     ) {
         this.height = height;
         this.map = map;
-
-        //createFrame(height, map);
-        //te newPosition w zasadzie są tutaj nie potrzebne, jeśli initial position będzie załatwiać sprawę...
-        hero.newPosition(map, hero.position, hero.symbol);
-        stone.newPosition(map, stone.position, stone.symbol);
-        hole.newPosition(map, hole.position, hole.symbol);
-        trap.newPosition(map, trap.position, trap.symbol);
-
     }
 
-    //wyrzucić to stąd - za dużo zależności...
-    //może zrobić statyczną
-    public static void createFrame(int height, char[][] map) {
-
-        if (height < 6) {
-            throw new IllegalArgumentException("Height must be 6 or greater.");
-        }
-
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < height; j++) {
-
-                if (i == 0 || i == height - 1 || j == 0 || j == height - 1)
-                    map[i][j] = '+';
-
-                else
-                    map[i][j] = ' ';
-            }
-        }
-    }
-
-
-    public void printCharArray() {
+    public void printMap() {
         for (char[] row : map) {
             for (char element : row) {
                 System.out.print(element + "  ");

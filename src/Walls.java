@@ -31,18 +31,20 @@ public class Walls {
                     positions[wallCounter++] = new Coordinates(i, j);
                     map[i][j] = this.symbol;
                 }
-                //This (creating empty spaces) should go somewhere else to - draw map, or sth like this
-                else
-                    map[i][j] = ' ';
             }
         }
 
-        //Logic for random walls
+        //Logic for random walls - for ex. setRandomWalls
+
+        //Saving initial positions
+        for (int i = 0; i < positions.length; i++) {
+            initialPosition[i] = new Coordinates(positions[i]);
+        }
     }
 
     private int calculateExpectedWallCount(int height, int randomWalls) {
-        int frame = (height-1)*4 ;
-        return frame+randomWalls;
+        int frame = (height - 1) * 4;
+        return frame + randomWalls;
     }
 
 }

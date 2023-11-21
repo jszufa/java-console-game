@@ -26,7 +26,6 @@ public class Stone extends Token {
             setInitialPosition(height, matrix);
         }
 
-        //it gets cleared when drawing the frame, but still it's a placeholder for initializing
         matrix[position.x][position.y] = symbol;
         this.initialPosition = new Coordinates(position.x, position.y);
     }
