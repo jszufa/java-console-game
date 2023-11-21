@@ -7,7 +7,7 @@ public class Wall extends Token {
     }
 
     @Override
-    public void setInitialPosition(int height, char[][] matrix) {
+    public void setInitialPosition(int height, char[][] map) {
 
     }
 }

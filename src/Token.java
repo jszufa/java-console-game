@@ -6,38 +6,50 @@ public class Token implements Item {
     Coordinates initialPosition;
     char symbol;
 
-    public Token (int height, char[][] matrix, char initialSymbol) {
+    public Token(int height, char[][] matrix, char initialSymbol) {
         symbol = initialSymbol;
         setInitialPosition(height, matrix);
     }
 
     @Override
-    public void setInitialPosition(int height, char[][] matrix) {
+    public void setInitialPosition(int height, char[][] map) {
 
         if (height < 6) {
-                throw new IllegalArgumentException("Height must be 6 or greater");
-            }
-
-        int rowIndex;
-        do {
-            rowIndex = generator.nextInt(height - 1);
-        } while (rowIndex == 0);
-
-        int colIndex;
-        do {
-            colIndex = generator.nextInt(height - 1);
-        } while (colIndex == 0);
-
-        position.x = rowIndex;
-        position.y = colIndex;
-
-        //check if the field is free
-        if (matrix[position.x][position.y] != ' ' && matrix[position.x][position.y] != '\0') {
-            setInitialPosition(height, matrix);
+            throw new IllegalArgumentException("Height must be 6 or greater");
         }
 
-        matrix[position.x][position.y] = symbol;
+        int maxAttempts = (height-2)*(height-2);
+        int rowIndex;
+        int colIndex;
+
+        //generate random position and check if it's free
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            do {
+                rowIndex = generator.nextInt(height - 1);
+            } while (rowIndex == 0);
+
+            do {
+                colIndex = generator.nextInt(height - 1);
+            } while (colIndex == 0);
+
+            position.x = rowIndex;
+            position.y = colIndex;
+
+            //check if the place is free
+            if (map[position.x][position.y] == ' ' || map[position.x][position.y] == '\0') {
+                break;
+            }
+        }
+
+        //throw exception if the place is not free after n(maxAttempts) attempts
+        if (map[position.x][position.y] != ' ' && map[position.x][position.y] != '\0') {
+            throw new IllegalStateException("Unable to find a free position after" + maxAttempts + " attempts");
+        }
+
+        //place token's symbol on the free position and remember it
+        map[position.x][position.y] = symbol;
         this.initialPosition = new Coordinates(position.x, position.y);
+
     }
 }
 

@@ -7,7 +7,7 @@ public class Stone extends Token {
     //stone needs a distance from wall
     //maybe change to: "adjust stone position if it's to close to the wall" - or make the logic different
     @Override
-    public void setInitialPosition(int height, char[][] matrix) {
+    public void setInitialPosition(int height, char[][] map) {
         int rowIndex;
         do {
             rowIndex = generator.nextInt(height - 2);
@@ -22,11 +22,11 @@ public class Stone extends Token {
         position.y = colIndex;
 
         //check if the field is free
-        if (matrix[position.x][position.y] != ' ' && matrix[position.x][position.y] != '\0') {
-            setInitialPosition(height, matrix);
+        if (map[position.x][position.y] != ' ' && map[position.x][position.y] != '\0') {
+            setInitialPosition(height, map);
         }
 
-        matrix[position.x][position.y] = symbol;
+        map[position.x][position.y] = symbol;
         this.initialPosition = new Coordinates(position.x, position.y);
     }
 }
