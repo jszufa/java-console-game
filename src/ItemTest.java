@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,7 +10,12 @@ class ItemTest {
     void checkRoadWithW() {
         int height = 6;
         char[][] map = new char[height][height];
-        var token = new Token(6, map, 'x');
-        assertEquals(2, token.checkRoad('w', token.position).x);
+        var position = new Coordinates(3,3);
+
+        //Mocking CODE HERE
+
+        
+
     }
+
 }

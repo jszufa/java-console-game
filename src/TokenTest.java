@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TokenTest {
 
 
-    //Set initial position - tests
+    //setInitialPosition tests
     @Test
     void lowHeightShouldThrowException() {
 
@@ -32,7 +32,7 @@ class TokenTest {
     }
 
     @Test
-    void overCrowdedMapShouldThrowException() {
+    void overcrowdedMapShouldThrowException() {
         //arrange
         int height = 10;
         char[][] map = new char[height][height];
@@ -57,6 +57,7 @@ class TokenTest {
         //act
         var token = new Token(height, map, symbol);
 
+        //assert
         assertNotSame(token.position, token.initialPosition);
         assertSame(token.position.x, token.initialPosition.x);
         assertSame(token.position.y, token.initialPosition.y);
