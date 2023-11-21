@@ -6,6 +6,7 @@ public class Level {
     Game game;
 
     //this could be also done by "createGame" method
+    Walls walls = new Walls(height, map, 0, '+');
     Hero hero = new Hero(height, map, 'H');
     Stone stone = new Stone(height, map, 'O');
     Hole hole = new Hole(height, map, 'X');
@@ -15,7 +16,7 @@ public class Level {
 
     public Level(String label) {
         this.label = label;
-        this.game = new Game(hero, stone, hole, trap, height, map);
+        this.game = new Game(hero, stone, hole, trap, walls, height, map);
 
         //CODE HERE
         //SAVE INITIAL SETTING
