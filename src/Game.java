@@ -29,7 +29,21 @@ public class Game {
 
 
     public void handleCommand(String input, Hero hero, Stone stone) {
+
+        //check for special words (maybe should store all special words in some place?)
+        if(input.toLowerCase().equals("quit") ||
+                input.toLowerCase().equals("reset")) {
+            return;
+        }
+
         char command = input.charAt(0);
+        if ( command != 'w' && command != 's' && command != 'a' && command != 'd'  ){
+            System.out.println("Command not recognized.");
+            System.out.println("Use W, S, A, D to move around.");
+            System.out.println("Type QUIT to quit the game or RESET to reset the level.");
+            return;
+        }
+
         Coordinates futureMove = hero.checkRoad(command, hero.position);
 
         //stone

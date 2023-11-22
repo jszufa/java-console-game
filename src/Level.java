@@ -1,7 +1,7 @@
 public class Level {
 
     String label;
-    int height = 20; //Enter number between 6 and 20
+    int height = 7; //Enter number between 6 and 20
     char[][] map = createEmptyMap(height);
     Game game;
 

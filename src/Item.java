@@ -18,6 +18,9 @@ public interface Item {
             case 's' -> tempX += 1;
             case 'a' -> tempY -= 1;
             case 'd' -> tempY += 1;
+            default -> {
+                throw new IllegalArgumentException("Invalid command passed to checkRoad method");
+            }
         }
 
         return new Coordinates(tempX, tempY);
