@@ -10,7 +10,7 @@ class WallsTest {
         int height = 5;
         char[][] map = new char[height][height];
 
-        assertThrows(IllegalArgumentException.class , () -> new Walls(height, map, 0, '+'));
+        assertThrows(IllegalArgumentException.class , () -> new Walls(map, 0, '+'));
     }
 
     void setInitialPositionWithBigHeight() {

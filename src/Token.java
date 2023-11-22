@@ -6,19 +6,20 @@ public class Token implements Item {
     Coordinates initialPosition;
     char symbol;
 
-    public Token(int height, char[][] matrix, char initialSymbol) {
+    public Token(char[][] map, char initialSymbol) {
         symbol = initialSymbol;
-        setInitialPosition(height, matrix);
+        setInitialPosition(map);
     }
 
     @Override
-    public void setInitialPosition(int height, char[][] map) {
+    public void setInitialPosition(char[][] map) {
+        int height = map.length;
 
         if (height < 6) {
             throw new IllegalArgumentException("Height must be 6 or greater");
         }
 
-        int maxAttempts = (height-2)*(height-2);
+        int maxAttempts = (height - 2) * (height - 2);
         int rowIndex;
         int colIndex;
 
@@ -53,17 +54,35 @@ public class Token implements Item {
     }
 
 
-    public void move(char command, char[][] matrix) {
-        this.clearPosition(matrix, position);
+    public void move(char command, char[][] map) {
+        this.clearPosition(map, position);
+
+        int numRows = map.length;
+        int numCols = map[0].length;
 
         switch (command) {
-            case 'w' -> position.x -= 1;
-            case 's' -> position.x += 1;
-            case 'a' -> position.y -= 1;
-            case 'd' -> position.y += 1;
-            default -> throw new IllegalArgumentException("Invalid command passed to checkRoad method");
+            case 'w':
+                if (position.x > 0)
+                    position.x -= 1;
+                break;
+            case 's':
+                if (position.x < numRows - 1)
+                    position.x += 1;
+                break;
+            case 'a':
+                if (position.y > 0)
+                    position.y -= 1;
+                break;
+            case 'd':
+                if (position.y < numCols - 1)
+                    position.y += 1;
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid command passed to checkRoad method");
         }
-        this.newPosition(matrix, this.position, this.symbol);
+
+
+        this.newPosition(map, this.position, this.symbol);
     }
 }
 

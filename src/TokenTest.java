@@ -15,7 +15,7 @@ class TokenTest {
         char[][] map = new char[height][height];
         char symbol = 'x';
 
-        assertThrows(IllegalArgumentException.class, () -> new Token(height, map, symbol));
+        assertThrows(IllegalArgumentException.class, () -> new Token(map, symbol));
     }
 
     @Test
@@ -26,7 +26,7 @@ class TokenTest {
         char symbol = 'x';
 
         //act
-        var token = new Token(height, map, symbol);
+        var token = new Token(map, symbol);
 
         //assert
         assertTrue(token.position.x > 0 && token.position.x < 5);
@@ -46,7 +46,7 @@ class TokenTest {
         }
 
         //act & assert
-        assertThrows(IllegalStateException.class, () -> new Token(height, map, symbol));
+        assertThrows(IllegalStateException.class, () -> new Token(map, symbol));
     }
 
     @Test
@@ -57,7 +57,7 @@ class TokenTest {
         char symbol = 'x';
 
         //act
-        var token = new Token(height, map, symbol);
+        var token = new Token(map, symbol);
 
         //assert
         assertNotSame(token.position, token.initialPosition);
@@ -67,15 +67,91 @@ class TokenTest {
 
     //move method tests
     @Test
-    void moveWithSpace() {
+    void moveWithSpaceShouldThrowException() {
 
         //arrange
         int height = 20;
         char[][] map = new char[height][height];
         char symbol = 'x';
-        var token = new Token(height, map, symbol);
+        var token = new Token(map, symbol);
 
         //act & assert
         assertThrows(IllegalArgumentException.class, () -> token.move(' ', map));
+    }
+
+    @Test
+    void moveOutsideOfMapShouldNotHappen1() {
+        //arrange
+        int height = 6;
+        char[][] map = new char[height][height];
+        char symbol = 'x';
+        var token = new Token(map, symbol);
+
+        token.position = new Coordinates(5, 5);
+
+        //act
+        token.move('d', map);
+        token.move('s', map);
+
+        //assert
+        assertSame(5, token.position.x);
+        assertSame(5 , token.position.y);
+    }
+
+    @Test
+    void moveOutsideOfMapShouldNotHappen2() {
+        //arrange
+        int height = 6;
+        char[][] map = new char[height][height];
+        char symbol = 'x';
+        var token = new Token(map, symbol);
+
+        token.position = new Coordinates(0, 5);
+
+        //act
+        token.move('d', map);
+        token.move('w', map);
+
+        //assert
+        assertSame(0, token.position.x);
+        assertSame(5 , token.position.y);
+    }
+
+    @Test
+    void moveOutsideOfMapShouldNotHappen3() {
+        //arrange
+        int height = 6;
+        char[][] map = new char[height][height];
+        char symbol = 'x';
+        var token = new Token(map, symbol);
+
+        token.position = new Coordinates(0, 0);
+
+        //act
+        token.move('a', map);
+        token.move('w', map);
+
+        //assert
+        assertSame(0, token.position.x);
+        assertSame(0 , token.position.y);
+    }
+
+    @Test
+    void moveOutsideOfMapShouldNotHappen4() {
+        //arrange
+        int height = 6;
+        char[][] map = new char[height][height];
+        char symbol = 'x';
+        var token = new Token(map, symbol);
+
+        token.position = new Coordinates(5, 0);
+
+        //act
+        token.move('a', map);
+        token.move('s', map);
+
+        //assert
+        assertSame(5, token.position.x);
+        assertSame(0 , token.position.y);
     }
 }

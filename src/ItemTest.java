@@ -4,7 +4,6 @@ import static org.mockito.Mockito.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//experimenting
 class ItemTest {
 
     @Test
@@ -56,6 +55,30 @@ class ItemTest {
 
         //assert
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void newPositionOutsideOfMapShouldThrowException(){
+
+        //arrange
+        var position = new Coordinates(6, 7);
+        char[][] map = new char[6][6];
+        Item mockedItem = mock(Item.class);
+
+        //act & assert
+        doThrow(new IllegalArgumentException("New position cannot be outside of a map"))
+                .when(mockedItem).newPosition(map, position, 'x');
+    }
+
+    @Test
+    void validatePositionOutsideOfMapShouldThrowException(){
+
+        //arrange
+        var position = new Coordinates(6, 7);
+        char[][] map = new char[6][6];
+
+        //act & assert
+        assertThrows(IllegalArgumentException.class, () -> Item.validatePosition(map, position));
     }
 
 }

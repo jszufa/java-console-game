@@ -2,12 +2,12 @@
 
 public class Wall extends Token {
 
-    public Wall(int height, char[][] matrix, char initialSymbol) {
-        super(height, matrix, initialSymbol);
+    public Wall(char[][] matrix, char initialSymbol) {
+        super(matrix, initialSymbol);
     }
 
     @Override
-    public void setInitialPosition(int height, char[][] map) {
+    public void setInitialPosition( char[][] map) {
 
     }
 }

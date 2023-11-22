@@ -1,6 +1,6 @@
 public class Hole extends Token {
 
-    public Hole(int height, char[][] matrix, char initialSymbol) {
-        super(height, matrix, initialSymbol);
+    public Hole(char[][] matrix, char initialSymbol) {
+        super(matrix, initialSymbol);
     }
 }

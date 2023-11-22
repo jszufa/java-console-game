@@ -7,15 +7,15 @@ public class Walls {
     Coordinates[] initialPosition;
     char symbol;
 
-    public Walls(int height, char[][] matrix, int randomWallsNumber, char initialSymbol) {
+    public Walls(char[][] matrix, int randomWallsNumber, char initialSymbol) {
         symbol = initialSymbol;
-        positions = new Coordinates[calculateExpectedWallCount(height, randomWallsNumber)];
+        positions = new Coordinates[calculateExpectedWallCount(randomWallsNumber, matrix)];
         initialPosition = new Coordinates[positions.length];
-        setInitialPosition(height, matrix);
+        setInitialPosition(matrix);
     }
 
-    public void setInitialPosition(int height, char[][] map) {
-
+    public void setInitialPosition(char[][] map) {
+        int height = map.length;
         //Frame
         int wallCounter = 0;
 
@@ -38,7 +38,8 @@ public class Walls {
         }
     }
 
-    private int calculateExpectedWallCount(int height, int randomWallsCount) {
+    private int calculateExpectedWallCount(int randomWallsCount, char[][] map) {
+        int height = map.length;
         int frame = (height - 1) * 4;
         return frame + randomWallsCount;
     }

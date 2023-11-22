@@ -1,7 +1,7 @@
 public class Trap extends Token {
 
-    public Trap(int height, char[][] matrix, char initialSymbol) {
-        super(height, matrix, initialSymbol);
+    public Trap(char[][] matrix, char initialSymbol) {
+        super(matrix, initialSymbol);
     }
 
 }

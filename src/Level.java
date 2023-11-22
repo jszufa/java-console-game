@@ -6,11 +6,11 @@ public class Level {
     Game game;
 
     //this could be also done by "createGame" method
-    Walls walls = new Walls(height, map, 0, '+');
-    Hero hero = new Hero(height, map, 'H');
-    Stone stone = new Stone(height, map, 'O');
-    Hole hole = new Hole(height, map, 'X');
-    Trap trap = new Trap(height, map, '8');
+    Walls walls = new Walls(map, 0, '+');
+    Hero hero = new Hero(map, 'H');
+    Stone stone = new Stone(map, 'O');
+    Hole hole = new Hole(map, 'X');
+    Trap trap = new Trap(map, '8');
 
 
     public Level(String label) {

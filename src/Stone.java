@@ -1,13 +1,15 @@
 public class Stone extends Token {
 
-    public Stone(int height, char[][] matrix, char initialSymbol) {
-        super(height, matrix, initialSymbol);
+    public Stone(char[][] matrix, char initialSymbol) {
+        super(matrix, initialSymbol);
     }
 
     //stone needs a distance from wall
     //maybe change to: "adjust stone position if it's to close to the wall" - or make the logic different
     @Override
-    public void setInitialPosition(int height, char[][] map) {
+    public void setInitialPosition(char[][] map) {
+        int height = map.length;
+
         int rowIndex;
         do {
             rowIndex = generator.nextInt(height - 2);
@@ -23,7 +25,7 @@ public class Stone extends Token {
 
         //check if the field is free
         if (map[position.x][position.y] != ' ' && map[position.x][position.y] != '\0') {
-            setInitialPosition(height, map);
+            setInitialPosition(map);
         }
 
         map[position.x][position.y] = symbol;

@@ -1,11 +1,13 @@
 public interface Item {
 
-    default void newPosition(char[][] matrix, Coordinates position, char symbol) {
-        matrix[position.x][position.y] = symbol;
+    default void newPosition(char[][] map, Coordinates position, char symbol) {
+            validatePosition(map, position);
+            map[position.x][position.y] = symbol;
     }
 
-    default void clearPosition(char[][] matrix, Coordinates position) {
-        matrix[position.x][position.y] = ' ';
+    default void clearPosition(char[][] map, Coordinates position) {
+        validatePosition(map, position);
+        map[position.x][position.y] = ' ';
     }
 
     default Coordinates checkRoad(char command, Coordinates position) {
@@ -29,5 +31,15 @@ public interface Item {
     }
 
 
-    void setInitialPosition(int height, char[][] matrix);
+    void setInitialPosition(char[][] map);
+
+    static void validatePosition(char[][] map, Coordinates position) {
+        int numRows = map.length;
+        int numCols = map[0].length;
+        if (position.x > numRows || position.y > numCols || position.x < 0 || position.y <0 ) {
+            throw new IllegalArgumentException("New position cannot be outside of a map");
+        }
+    }
 }
+
+
