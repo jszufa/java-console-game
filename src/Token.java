@@ -51,5 +51,19 @@ public class Token implements Item {
         this.initialPosition = new Coordinates(position.x, position.y);
 
     }
+
+
+    public void move(char command, char[][] matrix) {
+        this.clearPosition(matrix, position);
+
+        switch (command) {
+            case 'w' -> position.x -= 1;
+            case 's' -> position.x += 1;
+            case 'a' -> position.y -= 1;
+            case 'd' -> position.y += 1;
+            default -> throw new IllegalArgumentException("Invalid command passed to checkRoad method");
+        }
+        this.newPosition(matrix, this.position, this.symbol);
+    }
 }
 

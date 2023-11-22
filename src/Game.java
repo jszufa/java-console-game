@@ -50,30 +50,30 @@ public class Game {
         if (map[futureMove.x][futureMove.y] == 'O') {
             Coordinates futureStoneMove = stone.checkRoad(command, stone.position);
             if (map[futureStoneMove.x][futureStoneMove.y] == 'X') {
-                stone.move(command, map, stone.position, stone.symbol);
-                hero.move(command, map, hero.position, hero.symbol);
+                stone.move(command, map);
+                hero.move(command, map);
                 victory = true;
             } else if (map[futureStoneMove.x][futureStoneMove.y] == '8') {
-                stone.move(command, map, stone.position, stone.symbol);
-                hero.move(command, map, hero.position, hero.symbol);
+                stone.move(command, map);
+                hero.move(command, map);
                 gameOver = true;
             } else if (map[futureStoneMove.x][futureStoneMove.y] != '+') {
 
-                stone.move(command, map, stone.position, stone.symbol);
-                hero.move(command, map, hero.position, hero.symbol);
+                stone.move(command, map);
+                hero.move(command, map);
             }
         }
 
         //hole or trap
         else if (map[futureMove.x][futureMove.y] == 'X' || map[futureMove.x][futureMove.y] == '8') {
-            hero.move(command, map, hero.position, hero.symbol);
+            hero.move(command, map);
             gameOver = true;
         }
 
         //wall (last condition)
         else if (map[futureMove.x][futureMove.y] != '+') {
 
-            hero.move(command, map, hero.position, hero.symbol);
+            hero.move(command, map);
         }
     }
 

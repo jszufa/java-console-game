@@ -23,20 +23,11 @@ public interface Item {
             }
         }
 
+        if (tempX <0 || tempY < 0) return position;
+
         return new Coordinates(tempX, tempY);
     }
 
-    default void move(char command, char[][] matrix, Coordinates position, char symbol) {
-        this.clearPosition(matrix, position);
-
-        switch (command) {
-            case 'w' -> position.x -= 1;
-            case 's' -> position.x += 1;
-            case 'a' -> position.y -= 1;
-            case 'd' -> position.y += 1;
-        }
-        this.newPosition(matrix, position, symbol);
-    }
 
     void setInitialPosition(int height, char[][] matrix);
 }

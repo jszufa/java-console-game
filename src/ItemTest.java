@@ -35,11 +35,27 @@ class ItemTest {
 
         Item mockedItem = mock(Item.class);
         when(mockedItem.checkRoad(' ', position)).thenThrow(
-               new IllegalArgumentException("Invalid command passed to checkRoad method")
+               new IllegalArgumentException("Invalid command parameter passed to checkRoad method")
         );
 
         //act & assert
         assertThrows(IllegalArgumentException.class, () -> mockedItem.checkRoad(' ', position));
+    }
+
+    @Test
+    void checkRoadWithPossibleNegativeIndexOutcomeShouldReturnStartPoint() {
+
+        //arrange
+        var position = new Coordinates(1, 0);
+        Item mockedItem = mock(Item.class);
+        when(mockedItem.checkRoad('a', position)).thenReturn(position);
+
+        //act
+        var expectedResult = position;
+        var actualResult = mockedItem.checkRoad('a', position);
+
+        //assert
+        assertEquals(expectedResult, actualResult);
     }
 
 }

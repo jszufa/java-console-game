@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class TokenTest {
 
@@ -61,5 +63,19 @@ class TokenTest {
         assertNotSame(token.position, token.initialPosition);
         assertSame(token.position.x, token.initialPosition.x);
         assertSame(token.position.y, token.initialPosition.y);
+    }
+
+    //move method tests
+    @Test
+    void moveWithSpace() {
+
+        //arrange
+        int height = 20;
+        char[][] map = new char[height][height];
+        char symbol = 'x';
+        var token = new Token(height, map, symbol);
+
+        //act & assert
+        assertThrows(IllegalArgumentException.class, () -> token.move(' ', map));
     }
 }
