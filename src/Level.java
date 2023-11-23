@@ -1,21 +1,25 @@
 public class Level {
 
     String label;
-    int height = 7; //Enter number between 6 and 20
-    char[][] map = createEmptyMap(height);
-    Game game;
+    char[][] map;
+    Walls walls;
+    Hero hero;
+    Stone stone;
+    Hole hole;
+    Trap trap;
 
-    //this could be also done by "createGame" method
-    Walls walls = new Walls(map, 0, '+');
-    Hero hero = new Hero(map, 'H');
-    Stone stone = new Stone(map, 'O');
-    Hole hole = new Hole(map, 'X');
-    Trap trap = new Trap(map, '8');
+    boolean completed = false;
 
 
-    public Level(String label) {
+
+    public Level(String label, int mapHeight) {
         this.label = label;
-        this.game = new Game(hero, stone, hole, trap, walls, height, map);
+        this.map = createEmptyMap(mapHeight);
+        this.walls = new Walls(map, 0, '+');
+        this.hero = new Hero(map, 'H');
+        this.stone = new Stone(map, 'O');
+        this.hole = new Hole(map, 'X');
+        this.trap = new Trap(map, '8');
     }
 
     public void resetLevel() {

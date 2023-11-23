@@ -7,7 +7,7 @@ public class Coordinates {
         this.y = y;
     }
 
-    //overload
+    //copy constructor
     public Coordinates (Coordinates coordinatesToCopy) {
         this.x = coordinatesToCopy.x;
         this.y = coordinatesToCopy.y;
