@@ -25,11 +25,11 @@ class EntityTest {
         char symbol = 'x';
 
         //act
-        var token = new Entity(map, symbol);
+        var entity = new Entity(map, symbol);
 
         //assert
-        assertTrue(token.position.x > 0 && token.position.x < 5);
-        assertTrue(token.position.y > 0 && token.position.y < 5);
+        assertTrue(entity.position.x > 0 && entity.position.x < 5);
+        assertTrue(entity.position.y > 0 && entity.position.y < 5);
     }
 
     @Test
@@ -56,12 +56,12 @@ class EntityTest {
         char symbol = 'x';
 
         //act
-        var token = new Entity(map, symbol);
+        var entity = new Entity(map, symbol);
 
         //assert
-        assertNotSame(token.position, token.initialPosition);
-        assertSame(token.position.x, token.initialPosition.x);
-        assertSame(token.position.y, token.initialPosition.y);
+        assertNotSame(entity.position, entity.initialPosition);
+        assertSame(entity.position.x, entity.initialPosition.x);
+        assertSame(entity.position.y, entity.initialPosition.y);
     }
 
     //move method tests
@@ -84,17 +84,17 @@ class EntityTest {
         int height = 6;
         char[][] map = new char[height][height];
         char symbol = 'x';
-        var token = new Entity(map, symbol);
+        var entity = new Entity(map, symbol);
 
-        token.position = new Coordinates(5, 5);
+        entity.position = new Coordinates(5, 5);
 
         //act
-        token.move('d', map);
-        token.move('s', map);
+        entity.move('d', map);
+        entity.move('s', map);
 
         //assert
-        assertSame(5, token.position.x);
-        assertSame(5 , token.position.y);
+        assertSame(5, entity.position.x);
+        assertSame(5 , entity.position.y);
     }
 
     @Test
@@ -103,17 +103,17 @@ class EntityTest {
         int height = 6;
         char[][] map = new char[height][height];
         char symbol = 'x';
-        var token = new Entity(map, symbol);
+        var entity = new Entity(map, symbol);
 
-        token.position = new Coordinates(0, 5);
+        entity.position = new Coordinates(0, 5);
 
         //act
-        token.move('d', map);
-        token.move('w', map);
+        entity.move('d', map);
+        entity.move('w', map);
 
         //assert
-        assertSame(0, token.position.x);
-        assertSame(5 , token.position.y);
+        assertSame(0, entity.position.x);
+        assertSame(5 , entity.position.y);
     }
 
     @Test
@@ -122,17 +122,17 @@ class EntityTest {
         int height = 6;
         char[][] map = new char[height][height];
         char symbol = 'x';
-        var token = new Entity(map, symbol);
+        var entity = new Entity(map, symbol);
 
-        token.position = new Coordinates(0, 0);
+        entity.position = new Coordinates(0, 0);
 
         //act
-        token.move('a', map);
-        token.move('w', map);
+        entity.move('a', map);
+        entity.move('w', map);
 
         //assert
-        assertSame(0, token.position.x);
-        assertSame(0 , token.position.y);
+        assertSame(0, entity.position.x);
+        assertSame(0 , entity.position.y);
     }
 
     @Test

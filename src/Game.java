@@ -5,6 +5,7 @@ public class Game {
 
     public Game(int levelCount, int mapHeight) {
         String input;
+        MapService mapService = new MapService();
 
         //game loop
         outerloop:
@@ -40,7 +41,7 @@ public class Game {
                     break outerloop;
                 }
 
-                MapService.handleCommand(input, actualLevel, this);
+                mapService.handleCommand(input, actualLevel, this);
             }
         }
     }
