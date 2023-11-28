@@ -1,16 +1,14 @@
-import java.util.Scanner;
-
 public class Game {
-    Scanner scanner = new Scanner(System.in);
+    ConsoleHandlerImpl console = new ConsoleHandlerImpl();
     boolean victory = false;
     boolean gameOver = false;
 
     public Game(int levelCount, int mapHeight) {
+        String input;
 
-        String input = "";
         //game loop
         outerloop:
-        for (short i = 1; i <= levelCount; i++) {
+        for (int i = 1; i <= levelCount; i++) {
             Level actualLevel = new Level("Level" + i, mapHeight);
 
             while (true) {
@@ -27,17 +25,18 @@ public class Game {
                     continue outerloop;
                 }
                 else if (gameOver) {
-                    printGameOver();
+                    printGameOver(); //problem to solve - gameOver prints but under next level...
                     break;
                 }
 
+
                 printInputMessage();
-                input = handleInput();
-                if (input.toLowerCase().equals("reset")) {
+                input = console.readInput();
+                if (input.equalsIgnoreCase("reset")) {
                     actualLevel.resetLevel();
                     continue;
                 }
-                if (input.toLowerCase().equals("quit")) {
+                if (input.equalsIgnoreCase("quit")) {
                     break outerloop;
                 }
 
@@ -50,41 +49,39 @@ public class Game {
     public void printMap(Level level) {
         for (char[] row : level.map) {
             for (char element : row) {
-                System.out.print(element + "  ");
+                console.displayOutput(element + "  ");
             }
-            System.out.println();
+            console.displayOutputLn();
         }
     }
 
     public void printInputMessage() {
-        System.out.print("Enter command: ");
+        console.displayOutput("Enter command: ");
     }
 
-    public String handleInput() {
-        String input = scanner.next();
-        return input;
-    }
 
     public void printVictory() {
-        System.out.print("------VICTORY!--------");
+        console.displayOutput("------VICTORY!--------");
     }
 
     public void printGameOver() {
-        System.out.println("------YOU-LOST--------");
-        System.out.println("------BUT-STILL--------");
-        System.out.println("----ENJOY-GOBLIN-SONG-----");
-        System.out.println();
-        System.out.println("\"Even though you had a map...\n You stupidly fell into our trap. \n Don't cry don't cry \n You'll be our pie\"");
+        console.displayOutputLn("------YOU-LOST--------");
+        console.displayOutputLn("------BUT-STILL--------");
+        console.displayOutputLn("----ENJOY-GOBLIN-SONG-----");
+        console.displayOutputLn();
+        console.displayOutputLn("\"Even though you had a map...\n You stupidly fell into our trap. \n Don't cry don't cry \n You'll be our pie\"");
     }
 
     public void printLevelLabel(Level level) {
-        System.out.println(level.label);
+        console.displayOutputLn(level.label);
     }
 
     public static void clearConsole() {
+        ConsoleHandlerImpl console = new ConsoleHandlerImpl();
+
         int linesToClear = 50;
         for (int i = 0; i < linesToClear; i++) {
-            System.out.println();
+            console.displayOutputLn();
         }
     }
 }

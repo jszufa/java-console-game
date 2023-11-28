@@ -1,19 +1,21 @@
+import static java.lang.Character.toLowerCase;
+
 public class MapService {
 
-    int height;
     char[][] map;
-
-
 
     public static void handleCommand(String input, Level level, Game game) {
 
         Hero hero = level.hero;
         Stone stone = level.stone;
+        Hole hole = level.hole;
+
+
         var map = level.map;
 
 
 
-        char command = input.charAt(0);
+        char command = toLowerCase(input.charAt(0));
         if ( command != 'w' && command != 's' && command != 'a' && command != 'd'  ){
             System.out.println("Command not recognized.");
             System.out.println("Use W, S, A, D to move around.");
@@ -24,9 +26,9 @@ public class MapService {
         Coordinates futureMove = hero.checkRoad(command, hero.position);
 
         //stone
-        if (map[futureMove.x][futureMove.y] == 'O') {
+        if (map[futureMove.x][futureMove.y] == stone.symbol) {
             Coordinates futureStoneMove = stone.checkRoad(command, stone.position);
-            if (map[futureStoneMove.x][futureStoneMove.y] == 'X') {
+            if (map[futureStoneMove.x][futureStoneMove.y] == hole.symbol) {
                 stone.move(command, map);
                 hero.move(command, map);
                 level.completed = true;

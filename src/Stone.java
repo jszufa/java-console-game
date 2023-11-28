@@ -1,4 +1,4 @@
-public class Stone extends Token {
+public class Stone extends Entity {
 
     public Stone(char[][] matrix, char initialSymbol) {
         super(matrix, initialSymbol);

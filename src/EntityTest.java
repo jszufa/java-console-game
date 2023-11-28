@@ -2,9 +2,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-class TokenTest {
+class EntityTest {
 
 
     //setInitialPosition tests
@@ -15,7 +14,7 @@ class TokenTest {
         char[][] map = new char[height][height];
         char symbol = 'x';
 
-        assertThrows(IllegalArgumentException.class, () -> new Token(map, symbol));
+        assertThrows(IllegalArgumentException.class, () -> new Entity(map, symbol));
     }
 
     @Test
@@ -26,7 +25,7 @@ class TokenTest {
         char symbol = 'x';
 
         //act
-        var token = new Token(map, symbol);
+        var token = new Entity(map, symbol);
 
         //assert
         assertTrue(token.position.x > 0 && token.position.x < 5);
@@ -46,7 +45,7 @@ class TokenTest {
         }
 
         //act & assert
-        assertThrows(IllegalStateException.class, () -> new Token(map, symbol));
+        assertThrows(IllegalStateException.class, () -> new Entity(map, symbol));
     }
 
     @Test
@@ -57,7 +56,7 @@ class TokenTest {
         char symbol = 'x';
 
         //act
-        var token = new Token(map, symbol);
+        var token = new Entity(map, symbol);
 
         //assert
         assertNotSame(token.position, token.initialPosition);
@@ -73,7 +72,7 @@ class TokenTest {
         int height = 20;
         char[][] map = new char[height][height];
         char symbol = 'x';
-        var token = new Token(map, symbol);
+        var token = new Entity(map, symbol);
 
         //act & assert
         assertThrows(IllegalArgumentException.class, () -> token.move(' ', map));
@@ -85,7 +84,7 @@ class TokenTest {
         int height = 6;
         char[][] map = new char[height][height];
         char symbol = 'x';
-        var token = new Token(map, symbol);
+        var token = new Entity(map, symbol);
 
         token.position = new Coordinates(5, 5);
 
@@ -104,7 +103,7 @@ class TokenTest {
         int height = 6;
         char[][] map = new char[height][height];
         char symbol = 'x';
-        var token = new Token(map, symbol);
+        var token = new Entity(map, symbol);
 
         token.position = new Coordinates(0, 5);
 
@@ -123,7 +122,7 @@ class TokenTest {
         int height = 6;
         char[][] map = new char[height][height];
         char symbol = 'x';
-        var token = new Token(map, symbol);
+        var token = new Entity(map, symbol);
 
         token.position = new Coordinates(0, 0);
 
@@ -142,7 +141,7 @@ class TokenTest {
         int height = 6;
         char[][] map = new char[height][height];
         char symbol = 'x';
-        var token = new Token(map, symbol);
+        var token = new Entity(map, symbol);
 
         token.position = new Coordinates(5, 0);
 

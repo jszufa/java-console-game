@@ -24,14 +24,14 @@ public class Level {
 
     public void resetLevel() {
 
-        Token[] tokens = {hero, stone, hole, trap};
+        Entity[] entities = {hero, stone, hole, trap};
 
-        for (Token token : tokens) {
-            token.clearPosition(map, token.position);
+        for (Entity entity : entities) {
+            entity.clearPosition(map, entity.position);
             //assigns values (not the reference)
-            token.position.x = token.initialPosition.x;
-            token.position.y = token.initialPosition.y;
-            token.newPosition(map, token.position, token.symbol);
+            entity.position.x = entity.initialPosition.x;
+            entity.position.y = entity.initialPosition.y;
+            entity.newPosition(map, entity.position, entity.symbol);
 
         }
     }

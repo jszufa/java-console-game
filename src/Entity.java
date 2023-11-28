@@ -1,12 +1,12 @@
 import java.util.Random;
 
-public class Token implements Item {
+public class Entity implements Item {
     Random generator = new Random();
     public Coordinates position = new Coordinates(0, 0);
     Coordinates initialPosition;
     char symbol;
 
-    public Token(char[][] map, char initialSymbol) {
+    public Entity(char[][] map, char initialSymbol) {
         symbol = initialSymbol;
         setInitialPosition(map);
     }

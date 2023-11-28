@@ -1,6 +1,4 @@
-import java.util.Random;
-
-public class Hero extends Token{
+public class Hero extends Entity {
 
     public Hero(char[][] matrix, char initialSymbol) {
         super( matrix, initialSymbol);
