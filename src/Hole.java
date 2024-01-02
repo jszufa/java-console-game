@@ -1,6 +1,6 @@
-public class Hole extends Hero {
+public class Hole extends Entity {
 
-    public Hole(int height, char[][] matrix, char initialSymbol) {
-        super(height, matrix, initialSymbol);
+    public Hole(char[][] map, char initialSymbol) {
+        super(map, initialSymbol);
     }
 }
