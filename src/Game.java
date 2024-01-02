@@ -20,14 +20,14 @@ public class Game {
                 if (i == levelCount && actualLevel.completed) {
                     victory = true; //just for clarity, there is nothing functional about it yet ;)
                     printVictory();
-                    break;
+                    break outerloop;
                 }
                 else if (actualLevel.completed) {
                     continue outerloop;
                 }
                 else if (gameOver) {
-                    printGameOver(); //problem to solve - gameOver prints but under next level...
-                    break;
+                    printGameOver();
+                    break outerloop;
                 }
 
 

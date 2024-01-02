@@ -1,7 +1,7 @@
 public class Stone extends Entity {
 
-    public Stone(char[][] matrix, char initialSymbol) {
-        super(matrix, initialSymbol);
+    public Stone(char[][] map, char initialSymbol) {
+        super(map, initialSymbol);
     }
 
     //stone needs a distance from wall
@@ -10,25 +10,31 @@ public class Stone extends Entity {
     public void setInitialPosition(char[][] map) {
         int height = map.length;
 
+        int maxAttempts = (height - 2) * (height - 2);
         int rowIndex;
-        do {
-            rowIndex = generator.nextInt(height - 2);
-        } while (rowIndex <= 1);
-
         int colIndex;
-        do {
-            colIndex = generator.nextInt(height - 2);
-        } while (colIndex <= 1);
 
-        position.x = rowIndex;
-        position.y = colIndex;
+        //generate random position and check if it's free
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            do {
+                rowIndex = generator.nextInt(height - 2);
+            } while (rowIndex <= 1);
 
-        //check if the field is free
-        if (map[position.x][position.y] != ' ' && map[position.x][position.y] != '\0') {
-            setInitialPosition(map);
+            do {
+                colIndex = generator.nextInt(height - 2);
+            } while (colIndex <= 1);
+
+            position.x = rowIndex;
+            position.y = colIndex;
+
+            //check if the field is free
+            if (map[position.x][position.y] != ' ' && map[position.x][position.y] != '\0') {
+                setInitialPosition(map);
+            }
+
+            //place stone's symbol on the free position and remember it
+            map[position.x][position.y] = symbol;
+            this.initialPosition = new Coordinates(position.x, position.y);
         }
-
-        map[position.x][position.y] = symbol;
-        this.initialPosition = new Coordinates(position.x, position.y);
     }
 }

@@ -7,11 +7,11 @@ public class Walls {
     Coordinates[] initialPosition;
     char symbol;
 
-    public Walls(char[][] matrix, int randomWallsNumber, char initialSymbol) {
+    public Walls(char[][] map, int randomWallsNumber, char initialSymbol) {
         symbol = initialSymbol;
-        positions = new Coordinates[calculateExpectedWallCount(randomWallsNumber, matrix)];
+        positions = new Coordinates[calculateExpectedWallCount(randomWallsNumber, map)];
         initialPosition = new Coordinates[positions.length];
-        setInitialPosition(matrix);
+        setInitialPosition(map);
     }
 
     public void setInitialPosition(char[][] map) {

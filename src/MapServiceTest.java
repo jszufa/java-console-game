@@ -11,13 +11,20 @@ class MapServiceTest {
     Level mockedLevel;
     Game mockedGame;
     MapService mockedMapService;
+    Hero mockedHero;
+    Stone mockedStone;
+    Hole mockedHole;
+    char [][] map;
 
 
     @BeforeEach
     public void setUp(){
-        Level mockedLevel = mock(Level.class);
-        Game mockedGame = mock(Game.class);
-        MapService mockedMapService = mock(MapService.class);
+        mockedLevel = mock(Level.class);
+        mockedGame = mock(Game.class);
+        mockedMapService = mock(MapService.class);
+        mockedHero = mock(Hero.class);
+        mockedStone = mock(Stone.class);
+        mockedHole = mock(Hole.class);
     }
 
     @Test
@@ -58,23 +65,41 @@ class MapServiceTest {
         verify(mockedMapService).handleCommand("a", mockedLevel, mockedGame);
     }
 
+    //checking different tree paths
     @Test
     void stoneOnHole_shouldCompleteLevel() {
         //arrange
-        Level mockedLevel = mock(Level.class);
-        Game mockedGame = mock(Game.class);
-        MapService mockedMapService = mock(MapService.class);
+        //Future move
+        map = new char[6][6];
+        Coordinates futureMove = new Coordinates(1, 2);
+        Coordinates futureStoneMove = new Coordinates(1, 1);
+        char command = 'a';
 
+        //setting hero's future move
+        when(mockedHero.checkRoad(command, mockedHero.position)).thenReturn(futureMove);
+
+        //stone is on the hero's way
+        when(map[futureMove.x][futureMove.y] == mockedStone.symbol).thenReturn(true);
+
+        //setting stone's future move
+        when(mockedStone.checkRoad(command, mockedStone.position)).thenReturn(futureStoneMove);
+
+        //hole is on the stone's way
+        when(map[futureStoneMove.x][futureStoneMove.y] == mockedHole.symbol).thenReturn(true);
+
+
+        //doNothing().when(mockedMapService).handleCommand("a", mockedLevel, mockedGame);
 //        mockedLevel.hole.position = new Coordinates(1,1);
 //        mockedLevel.stone.position = new Coordinates(1,2);
 //        mockedLevel.hero.position = new Coordinates(1, 3);
-        doNothing().when(mockedMapService).handleCommand("a", mockedLevel, mockedGame);
+        //doNothing().when(mockedMapService).handleCommand("a", mockedLevel, mockedGame);
 
         //act
         mockedMapService.handleCommand("a", mockedLevel, mockedGame);
 
         //assert
-        verify(mockedMapService).handleCommand("a", mockedLevel, mockedGame);
+        assertTrue(mockedLevel.completed);
+        //verify(mockedMapService).handleCommand("a", mockedLevel, mockedGame);
     }
 
 

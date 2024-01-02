@@ -42,7 +42,7 @@ public class Entity implements Item {
             }
         }
 
-        //throw exception if the place is not free after n(maxAttempts) attempts
+        //throw exception if the place is not free after n (maxAttempts) attempts
         if (map[position.x][position.y] != ' ' && map[position.x][position.y] != '\0') {
             throw new IllegalStateException("Unable to find a free position after" + maxAttempts + " attempts");
         }

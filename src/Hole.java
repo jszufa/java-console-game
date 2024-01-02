@@ -1,6 +1,6 @@
 public class Hole extends Entity {
 
-    public Hole(char[][] matrix, char initialSymbol) {
-        super(matrix, initialSymbol);
+    public Hole(char[][] map, char initialSymbol) {
+        super(map, initialSymbol);
     }
 }

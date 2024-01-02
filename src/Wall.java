@@ -2,12 +2,12 @@
 
 public class Wall extends Entity {
 
-    public Wall(char[][] matrix, char initialSymbol) {
-        super(matrix, initialSymbol);
+    public Wall(char[][] map, char initialSymbol) {
+        super(map, initialSymbol);
     }
 
     @Override
     public void setInitialPosition( char[][] map) {
-
+    //code here...
     }
 }

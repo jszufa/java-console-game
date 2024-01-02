@@ -2,6 +2,7 @@ import static java.lang.Character.toLowerCase;
 
 public class MapService {
 
+
     public void handleCommand(String input, Level level, Game game) {
 
         var map = level.map;
@@ -11,7 +12,7 @@ public class MapService {
         Trap trap = level.trap;
         Walls walls = level.walls;
 
-        char command = input.charAt(0);
+        char command = toLowerCase(input.charAt(0));
         if (!validateCommand(command)) return;
 
         Coordinates futureMove = hero.checkRoad(command, hero.position);
@@ -33,6 +34,7 @@ public class MapService {
             } else if (map[futureStoneMove.x][futureStoneMove.y] != walls.symbol) {
                 stone.move(command, map);
                 hero.move(command, map);
+                //tutaj jest potencjalny bug case, jeśli nie będzie ramki. Wtedy stone się nie przesunie(bo taka jest logika "move"), ale hero się przesunie i nadpisze jego pozycję.
             }
         }
 
