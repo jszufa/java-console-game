@@ -4,17 +4,23 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.text.Position;
 
+import static java.lang.Character.toLowerCase;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import org.mockito.Mock;
 
 class MapServiceTest {
+
     Level mockedLevel;
     Game mockedGame;
     MapService mockedMapService;
     Hero mockedHero;
     Stone mockedStone;
     Hole mockedHole;
+    Trap mockedTrap;
+    Walls mockedWalls;
     char [][] map;
+
 
 
     @BeforeEach
@@ -25,6 +31,8 @@ class MapServiceTest {
         mockedHero = mock(Hero.class);
         mockedStone = mock(Stone.class);
         mockedHole = mock(Hole.class);
+        mockedTrap = mock(Trap.class);
+        mockedWalls = mock(Walls.class);
     }
 
     @Test
@@ -66,41 +74,43 @@ class MapServiceTest {
     }
 
     //checking different tree paths
+
+
     @Test
     void stoneOnHole_shouldCompleteLevel() {
         //arrange
-        //Future move
+        MapService mapService = new MapService();
         map = new char[6][6];
+        mockedLevel.map = map;
+
+        String input = "a";
+        char command = 'a';
         Coordinates futureMove = new Coordinates(1, 2);
         Coordinates futureStoneMove = new Coordinates(1, 1);
-        char command = 'a';
 
-        //setting hero's future move
+        map[futureMove.x][futureMove.y] = mockedStone.symbol; //stone is on the hero's way
+        map[futureStoneMove.x][futureStoneMove.y] = mockedHole.symbol; //hole is on the stone's way
+
+        //mocking other dependencies
+        mockedLevel.hero = mockedHero;
+        mockedLevel.stone = mockedStone;
+        mockedLevel.hole = mockedHole;
+        mockedLevel.trap = mockedTrap;
+        mockedLevel.walls = mockedWalls;
+
+        //mocking checkRoad
         when(mockedHero.checkRoad(command, mockedHero.position)).thenReturn(futureMove);
-
-        //stone is on the hero's way
-        when(map[futureMove.x][futureMove.y] == mockedStone.symbol).thenReturn(true);
-
-        //setting stone's future move
         when(mockedStone.checkRoad(command, mockedStone.position)).thenReturn(futureStoneMove);
 
-        //hole is on the stone's way
-        when(map[futureStoneMove.x][futureStoneMove.y] == mockedHole.symbol).thenReturn(true);
-
-
-        //doNothing().when(mockedMapService).handleCommand("a", mockedLevel, mockedGame);
-//        mockedLevel.hole.position = new Coordinates(1,1);
-//        mockedLevel.stone.position = new Coordinates(1,2);
-//        mockedLevel.hero.position = new Coordinates(1, 3);
-        //doNothing().when(mockedMapService).handleCommand("a", mockedLevel, mockedGame);
+        //mocking move
+        doNothing().when(mockedStone).move(command, map);
+        doNothing().when(mockedHero).move(command, map);
 
         //act
-        mockedMapService.handleCommand("a", mockedLevel, mockedGame);
+        mapService.handleCommand(input, mockedLevel, mockedGame);
 
         //assert
         assertTrue(mockedLevel.completed);
-        //verify(mockedMapService).handleCommand("a", mockedLevel, mockedGame);
     }
-
 
 }
