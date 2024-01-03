@@ -21,6 +21,13 @@ class MapServiceTest {
     Walls mockedWalls;
     char [][] map;
 
+    String input;
+    char command;
+    Coordinates futureMove;
+    Coordinates futureStoneMove;
+
+
+
 
 
     @BeforeEach
@@ -76,6 +83,7 @@ class MapServiceTest {
 
     // handleCommand TESTS
     void customSetup_for_handleCommand_tests () {
+
         mockedLevel.hero = mockedHero;
         mockedLevel.stone = mockedStone;
         mockedLevel.hole = mockedHole;
@@ -84,26 +92,11 @@ class MapServiceTest {
 
         map = new char[6][6];
         mockedLevel.map = map;
-    }
 
-    //checking different tree paths
-    @Test
-    void stoneOnHole_shouldCompleteLevel() {
-        //arrange
-        customSetup_for_handleCommand_tests(); //mocking some dependencies
-
-        MapService mapService = new MapService();
-
-        String input = "a";
-        char command = 'a';
-        Coordinates futureMove = new Coordinates(1, 2);
-        Coordinates futureStoneMove = new Coordinates(1, 1);
-
-        mockedStone.symbol = 'O';
-        map[futureMove.x][futureMove.y] = 'O'; //stone is on the hero's way
-
-        mockedHole.symbol = 'X';
-        map[futureStoneMove.x][futureStoneMove.y] = 'X'; //hole is on the stone's way
+        input = "a";
+        command = 'a';
+        futureMove = new Coordinates(1, 2);
+        futureStoneMove = new Coordinates(1, 1);
 
         //mocking checkRoad
         when(mockedHero.checkRoad(command, mockedHero.position)).thenReturn(futureMove);
@@ -112,6 +105,20 @@ class MapServiceTest {
         //mocking move
         doNothing().when(mockedStone).move(command, map);
         doNothing().when(mockedHero).move(command, map);
+    }
+
+    //checking different tree paths
+    @Test
+    void stoneOnHole_shouldCompleteLevel() {
+        //arrange
+        customSetup_for_handleCommand_tests();
+        MapService mapService = new MapService();
+
+        mockedStone.symbol = 'O';
+        map[futureMove.x][futureMove.y] = 'O'; //stone is on the hero's way
+
+        mockedHole.symbol = 'X';
+        map[futureStoneMove.x][futureStoneMove.y] = 'X'; //hole is on the stone's way
 
         //act
         mapService.handleCommand(input, mockedLevel, mockedGame);
@@ -123,28 +130,14 @@ class MapServiceTest {
     @Test
     void stoneOnTrap_should_loseGame() {
         //arrange
-        customSetup_for_handleCommand_tests(); //mocking some dependencies
-
+        customSetup_for_handleCommand_tests();
         MapService mapService = new MapService();
-
-        String input = "a";
-        char command = 'a';
-        Coordinates futureMove = new Coordinates(1, 2);
-        Coordinates futureStoneMove = new Coordinates(1, 1);
 
         mockedStone.symbol = 'O';
         map[futureMove.x][futureMove.y] = 'O'; //stone is on the hero's way
 
         mockedTrap.symbol = '8';
         map[futureStoneMove.x][futureStoneMove.y] = '8'; //trap is on the stone's way
-
-        //mocking checkRoad
-        when(mockedHero.checkRoad(command, mockedHero.position)).thenReturn(futureMove);
-        when(mockedStone.checkRoad(command, mockedStone.position)).thenReturn(futureStoneMove);
-
-        //mocking move
-        doNothing().when(mockedStone).move(command, map);
-        doNothing().when(mockedHero).move(command, map);
 
         //act
         mapService.handleCommand(input, mockedLevel, mockedGame);
@@ -156,28 +149,14 @@ class MapServiceTest {
     @Test
     void stoneOnWall_shouldNot_moveItems() {
         //arrange
-        customSetup_for_handleCommand_tests(); //mocking some dependencies
-
+        customSetup_for_handleCommand_tests();
         MapService mapService = new MapService();
-
-        String input = "a";
-        char command = 'a';
-        Coordinates futureMove = new Coordinates(1, 2);
-        Coordinates futureStoneMove = new Coordinates(1, 1);
 
         mockedStone.symbol = 'O';
         map[futureMove.x][futureMove.y] = 'O'; //stone is on the hero's way
 
         mockedWalls.symbol = '+';
         map[futureStoneMove.x][futureStoneMove.y] = '+'; //wall is on the stone's way
-
-        //mocking checkRoad
-        when(mockedHero.checkRoad(command, mockedHero.position)).thenReturn(futureMove);
-        when(mockedStone.checkRoad(command, mockedStone.position)).thenReturn(futureStoneMove);
-
-        //mocking move
-        doNothing().when(mockedStone).move(command, map);
-        doNothing().when(mockedHero).move(command, map);
 
         //act
         mapService.handleCommand(input, mockedLevel, mockedGame);
@@ -190,26 +169,12 @@ class MapServiceTest {
     @Test
     void stoneOnEmpty_should_moveItems () {
         //arrange
-        customSetup_for_handleCommand_tests(); //mocking some dependencies
-
+        customSetup_for_handleCommand_tests();
         MapService mapService = new MapService();
-
-        String input = "a";
-        char command = 'a';
-        Coordinates futureMove = new Coordinates(1, 2);
-        Coordinates futureStoneMove = new Coordinates(1, 1);
 
         mockedStone.symbol = 'O';
         map[futureMove.x][futureMove.y] = 'O'; //stone is on the hero's way
         map[futureStoneMove.x][futureStoneMove.y] = ' '; //nothing is on the stone's way
-
-        //mocking checkRoad
-        when(mockedHero.checkRoad(command, mockedHero.position)).thenReturn(futureMove);
-        when(mockedStone.checkRoad(command, mockedStone.position)).thenReturn(futureStoneMove);
-
-        //mocking move
-        doNothing().when(mockedStone).move(command, map);
-        doNothing().when(mockedHero).move(command, map);
 
         //act
         mapService.handleCommand(input, mockedLevel, mockedGame);
@@ -219,31 +184,19 @@ class MapServiceTest {
         verify(mockedStone, times(1)).move(command, map);
     }
 
-    //potencjalny test...
     @Test
     void stoneOutOfMap_shouldNot_moveItems() {
-
+        //potencjalny test...
     }
 
     @Test
     void heroOnTrap_should_endGame() {
-
-        customSetup_for_handleCommand_tests(); //mocking some dependencies
-
+        //arrange
+        customSetup_for_handleCommand_tests();
         MapService mapService = new MapService();
-
-        String input = "a";
-        char command = 'a';
-        Coordinates futureMove = new Coordinates(1, 2);
 
         mockedTrap.symbol = '8';
         map[futureMove.x][futureMove.y] = '8'; //trap is on the hero's way
-
-        //mocking checkRoad
-        when(mockedHero.checkRoad(command, mockedHero.position)).thenReturn(futureMove);
-
-        //mocking move
-        doNothing().when(mockedHero).move(command, map);
 
         //act
         mapService.handleCommand(input, mockedLevel, mockedGame);
@@ -254,23 +207,12 @@ class MapServiceTest {
 
     @Test
     void heroOnHole_should_endGame() {
-
-        customSetup_for_handleCommand_tests(); //mocking some dependencies
-
+        //arrange
+        customSetup_for_handleCommand_tests();
         MapService mapService = new MapService();
-
-        String input = "a";
-        char command = 'a';
-        Coordinates futureMove = new Coordinates(1, 2);
 
         mockedHole.symbol = 'X';
         map[futureMove.x][futureMove.y] = 'X'; //hole is on the hero's way
-
-        //mocking checkRoad
-        when(mockedHero.checkRoad(command, mockedHero.position)).thenReturn(futureMove);
-
-        //mocking move
-        doNothing().when(mockedHero).move(command, map);
 
         //act
         mapService.handleCommand(input, mockedLevel, mockedGame);
@@ -281,23 +223,12 @@ class MapServiceTest {
 
     @Test
     void heroOnWall_shouldNot_move() {
-
-        customSetup_for_handleCommand_tests(); //mocking some dependencies
-
+        //arrange
+        customSetup_for_handleCommand_tests();
         MapService mapService = new MapService();
 
-        String input = "a";
-        char command = 'a';
-        Coordinates futureMove = new Coordinates(1, 2);
-
         mockedWalls.symbol = '+';
-        map[futureMove.x][futureMove.y] = '+'; //hole is on the hero's way
-
-        //mocking checkRoad
-        when(mockedHero.checkRoad(command, mockedHero.position)).thenReturn(futureMove);
-
-        //mocking move
-        doNothing().when(mockedHero).move(command, map);
+        map[futureMove.x][futureMove.y] = '+'; //wall is on the hero's way
 
         //act
         mapService.handleCommand(input, mockedLevel, mockedGame);
@@ -308,21 +239,10 @@ class MapServiceTest {
 
     @Test
     void heroOnEmpty_should_move() {
-        customSetup_for_handleCommand_tests(); //mocking some dependencies
-
+        customSetup_for_handleCommand_tests();
         MapService mapService = new MapService();
 
-        String input = "a";
-        char command = 'a';
-        Coordinates futureMove = new Coordinates(1, 2);
-
         map[futureMove.x][futureMove.y] = ' '; //nothing is on the hero's way
-
-        //mocking checkRoad
-        when(mockedHero.checkRoad(command, mockedHero.position)).thenReturn(futureMove);
-
-        //mocking move
-        doNothing().when(mockedHero).move(command, map);
 
         //act
         mapService.handleCommand(input, mockedLevel, mockedGame);
@@ -330,11 +250,4 @@ class MapServiceTest {
         //assert
         verify(mockedHero, times(1)).move(command, map);
     }
-
-    //case when something unexpected is on the way - throw exception.
 }
-
-// przetestować inne scenariusze - może mogę gdzieś umieścić wiele elementów z sekcji arrange, tak żeby ich nie dublować w następnych testach.
-//potencjalne testy:
-//4.co z pchnięciem poza planszę?
-//5.co jeszcze może się przytrafić?
