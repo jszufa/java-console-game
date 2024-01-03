@@ -6,9 +6,11 @@ public class Walls {
     public Coordinates[] positions;
     Coordinates[] initialPosition;
     char symbol;
+    int randomWallsNumber;
 
     public Walls(char[][] map, int randomWallsNumber, char initialSymbol) {
         symbol = initialSymbol;
+        this.randomWallsNumber = randomWallsNumber;
         positions = new Coordinates[calculateExpectedWallCount(randomWallsNumber, map)];
         initialPosition = new Coordinates[positions.length];
         setInitialPosition(map);
@@ -30,7 +32,13 @@ public class Walls {
             }
         }
 
-        //Logic for random walls - for ex. setRandomWalls
+        //Logic for random walls
+        //for (int i =0; i < randomWallsNumber; i++) {
+            //warunek randomWalls number < height - 3
+          // Wall randomWall = new Wall (map, symbol);
+        //}
+
+        //może zrobić osobny obiekt dla ramki, a osobny dla ranodm walls, a nie wrzucać wszystkiego w logikę walls. To brzmi sensownie.
 
         //Saving initial positions
         for (int i = 0; i < positions.length; i++) {

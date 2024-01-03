@@ -32,12 +32,12 @@ public class MapService {
                 game.gameOver = true;
 
             } else if (map[futureStoneMove.x][futureStoneMove.y] == walls.symbol) {
-
+                // no action needed in this case
             }
             else {
                 stone.move(command, map);
                 hero.move(command, map);
-                //tutaj jest potencjalny bug case, jeśli nie będzie ramki. Wtedy stone się nie przesunie(bo taka jest logika "move"), ale hero się przesunie i nadpisze jego pozycję.
+                //tutaj jest potencjalny bug case, jeśli nie będzie ramki. Wtedy stone się nie przesunie (bo taka jest logika "move"), ale hero się przesunie i nadpisze jego pozycję.
             }
         }
 
@@ -49,7 +49,7 @@ public class MapService {
 
         //wall
         else if (map[futureMove.x][futureMove.y] == walls.symbol) {
-            //nothing happens
+            // no action needed in this case
         }
         else {
             hero.move(command, map);

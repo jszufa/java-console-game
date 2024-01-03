@@ -28,13 +28,19 @@ public class Stone extends Entity {
             position.y = colIndex;
 
             //check if the field is free
-            if (map[position.x][position.y] != ' ' && map[position.x][position.y] != '\0') {
-                setInitialPosition(map);
+            if (map[position.x][position.y] == ' ' || map[position.x][position.y] == '\0') {
+                break;
             }
-
-            //place stone's symbol on the free position and remember it
-            map[position.x][position.y] = symbol;
-            this.initialPosition = new Coordinates(position.x, position.y);
         }
+
+        //throw exception if the place is not free after n (maxAttempts) attempts
+        if (map[position.x][position.y] != ' ' && map[position.x][position.y] != '\0') {
+            throw new IllegalStateException("Unable to find a free position after" + maxAttempts + " attempts");
+        }
+
+        //place stone's symbol on the free position and remember it
+        map[position.x][position.y] = symbol;
+        this.initialPosition = new Coordinates(position.x, position.y);
     }
 }
+

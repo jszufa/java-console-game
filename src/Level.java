@@ -15,11 +15,11 @@ public class Level {
     public Level(String label, int mapHeight) {
         this.label = label;
         this.map = createEmptyMap(mapHeight);
-        this.walls = new Walls(map, 0, '+');
         this.hero = new Hero(map, 'H');
         this.stone = new Stone(map, 'O');
         this.hole = new Hole(map, 'X');
         this.trap = new Trap(map, '8');
+        this.walls = new Walls(map, 0, '+');
     }
 
     public void resetLevel() {

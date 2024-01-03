@@ -1,40 +1,31 @@
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import javax.swing.text.Position;
-
 import static java.lang.Character.toLowerCase;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import org.mockito.Mock;
 
 class MapServiceTest {
 
     Level mockedLevel;
     Game mockedGame;
-    MapService mockedMapService;
     Hero mockedHero;
     Stone mockedStone;
     Hole mockedHole;
     Trap mockedTrap;
     Walls mockedWalls;
-    char [][] map;
+    char[][] map;
 
     String input;
     char command;
     Coordinates futureMove;
     Coordinates futureStoneMove;
 
-
-
-
-
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         mockedLevel = mock(Level.class);
         mockedGame = mock(Game.class);
-        mockedMapService = mock(MapService.class);
         mockedHero = mock(Hero.class);
         mockedStone = mock(Stone.class);
         mockedHole = mock(Hole.class);
@@ -43,7 +34,7 @@ class MapServiceTest {
     }
 
     @Test
-    void q_shouldReturnFalse_onValidateCommand (){
+    void q_shouldReturnFalse_onValidateCommand() {
         //arrange
         MapService mapService = new MapService();
         char command = 'q';
@@ -56,7 +47,7 @@ class MapServiceTest {
     }
 
     @Test
-    void capitalW_shouldReturnTrue_onValidateCommand (){
+    void capitalW_shouldReturnTrue_onValidateCommand() {
         //arrange
         MapService mapService = new MapService();
         char command = 'W';
@@ -72,6 +63,7 @@ class MapServiceTest {
     @Test
     void when_HandleCommandCalled_thenVerified() {
         //arrange
+        MapService mockedMapService = mock(MapService.class);
         doNothing().when(mockedMapService).handleCommand("a", mockedLevel, mockedGame);
 
         //act
@@ -82,7 +74,7 @@ class MapServiceTest {
     }
 
     // handleCommand TESTS
-    void customSetup_for_handleCommand_tests () {
+    void customSetup_for_handleCommand_tests() {
 
         mockedLevel.hero = mockedHero;
         mockedLevel.stone = mockedStone;
@@ -167,7 +159,7 @@ class MapServiceTest {
     }
 
     @Test
-    void stoneOnEmpty_should_moveItems () {
+    void stoneOnEmpty_should_moveItems() {
         //arrange
         customSetup_for_handleCommand_tests();
         MapService mapService = new MapService();
