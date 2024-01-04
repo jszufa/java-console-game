@@ -2,7 +2,6 @@ import static java.lang.Character.toLowerCase;
 
 public class MapService {
 
-
     public void handleCommand(String input, Level level, Game game) {
 
         var map = level.map;
@@ -16,43 +15,52 @@ public class MapService {
         if (!validateCommand(command)) return;
 
         Coordinates futureMove = hero.checkRoad(command, hero.position);
+        char onHeroWay = map[futureMove.x][futureMove.y];
+
+        //nothing
+        if (onHeroWay == ' ' || onHeroWay == '\0') {
+            hero.move(command, map);
+        }
 
         //stone
-        if (map[futureMove.x][futureMove.y] == stone.symbol) {
+        else if (onHeroWay == stone.symbol) {
             Coordinates futureStoneMove = stone.checkRoad(command, stone.position);
+            char onStoneWay = map[futureStoneMove.x][futureStoneMove.y];
 
-            if (map[futureStoneMove.x][futureStoneMove.y] == hole.symbol) {
+            if (onStoneWay == hole.symbol) {
                 stone.move(command, map);
                 hero.move(command, map);
                 level.completed = true;
 
-            } else if (map[futureStoneMove.x][futureStoneMove.y] == trap.symbol) {
+            } else if (onStoneWay == trap.symbol) {
                 stone.move(command, map);
                 hero.move(command, map);
                 game.gameOver = true;
 
-            } else if (map[futureStoneMove.x][futureStoneMove.y] == walls.symbol) {
+            } else if (onStoneWay == walls.symbol) {
                 // no action needed in this case
-            }
-            else {
+            } else {
                 stone.move(command, map);
                 hero.move(command, map);
-                //tutaj jest potencjalny bug case, jeśli nie będzie ramki. Wtedy stone się nie przesunie (bo taka jest logika "move"), ale hero się przesunie i nadpisze jego pozycję.
+                //tutaj jest potencjalny bug case, jeśli nie będzie ramki.
+                // Wtedy stone się nie przesunie (bo taka jest logika "move"), ale hero się przesunie i nadpisze jego pozycję.
             }
         }
 
         //hole or trap
-        else if (map[futureMove.x][futureMove.y] == hole.symbol || map[futureMove.x][futureMove.y] == trap.symbol) {
+        else if (onHeroWay == hole.symbol || onHeroWay == trap.symbol) {
             hero.move(command, map);
             game.gameOver = true;
         }
 
         //wall
-        else if (map[futureMove.x][futureMove.y] == walls.symbol) {
+        else if (onHeroWay == walls.symbol) {
             // no action needed in this case
         }
+
+        //unknown
         else {
-            hero.move(command, map);
+            throw new IllegalArgumentException("Unrecognized character on the map");
         }
     }
 

@@ -242,4 +242,16 @@ class MapServiceTest {
         //assert
         verify(mockedHero, times(1)).move(command, map);
     }
+
+    @Test
+    void heroOnUnknown_should_throwException() {
+        customSetup_for_handleCommand_tests();
+        MapService mapService = new MapService();
+
+        map[futureMove.x][futureMove.y] = 'q'; //nothing is on the hero's way
+
+        //act & assert
+        assertThrows(IllegalArgumentException.class, () -> mapService.handleCommand(input, mockedLevel, mockedGame));
+    }
+
 }
