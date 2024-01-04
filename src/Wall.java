@@ -1,5 +1,3 @@
-//zobaczymy czy się przyda do tworzenia pojedynczych losowych murków.
-
 public class Wall extends Entity {
 
     public Wall(char[][] map, char initialSymbol) {
@@ -18,11 +16,11 @@ public class Wall extends Entity {
         //generate random position and check if it's free
         for (int attempt = 0; attempt < maxAttempts; attempt++) {
             do {
-                rowIndex = generator.nextInt(height - 2);
+                rowIndex = generator.nextInt(height - 1);
             } while (rowIndex == 0);
 
             do {
-                colIndex = generator.nextInt(height - 2);
+                colIndex = generator.nextInt(height - 1);
             } while (colIndex == 0);
 
             position.x = rowIndex;

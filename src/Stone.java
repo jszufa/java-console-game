@@ -4,7 +4,7 @@ public class Stone extends Entity {
         super(map, initialSymbol);
     }
 
-    //stone needs a distance from wall
+    //stone needs a distance from wall frame
     //maybe change to: "adjust stone position if it's to close to the wall" - or make the logic different
     @Override
     public void setInitialPosition(char[][] map) {

@@ -8,6 +8,4 @@ public class Main {
     }
 }
 
-//random walle działają
-//teraz można dodać jeszcze coś ala "get level / get initial postions, do levelu"
 //mogę też dodać testy do nieotestowanych klas

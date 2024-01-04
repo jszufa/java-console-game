@@ -11,8 +11,6 @@ public class Level {
 
     boolean completed = false;
 
-
-
     public Level(String label, int mapHeight) {
         this.label = label;
         this.map = createEmptyMap(mapHeight);
@@ -36,8 +34,9 @@ public class Level {
             entity.position.x = entity.initialPosition.x;
             entity.position.y = entity.initialPosition.y;
             entity.newPosition(map, entity.position, entity.symbol);
-
         }
+
+        //póki co pozycja walls się nie zmienia, więc nie trzeba ich resetować
     }
 
     public static char[][] createEmptyMap(int height) {

@@ -1,6 +1,6 @@
 public class Walls {
     public Coordinates[] positions;
-    Coordinates[] initialPosition;
+    Coordinates[] initialPositions;
     char symbol;
     int randomWallsNumber;
 
@@ -8,11 +8,11 @@ public class Walls {
         symbol = initialSymbol;
         randomWallsNumber =  map.length > 6 ? map.length - 6 : 0; //maybe to be modified
         positions = new Coordinates[calculateExpectedWallCount(randomWallsNumber, map)];
-        initialPosition = new Coordinates[positions.length];
-        setInitialPosition(map);
+        initialPositions = new Coordinates[positions.length];
+        setInitialPositions(map);
     }
 
-    public void setInitialPosition(char[][] map) {
+    public void setInitialPositions(char[][] map) {
         int height = map.length;
 
         //Frame
@@ -38,7 +38,7 @@ public class Walls {
 
         //Saving initial positions
         for (int i = 0; i < positions.length; i++) {
-            initialPosition[i] = new Coordinates(positions[i]);
+            initialPositions[i] = new Coordinates(positions[i]);
         }
     }
 
