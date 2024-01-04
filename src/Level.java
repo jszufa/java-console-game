@@ -7,6 +7,7 @@ public class Level {
     Stone stone;
     Hole hole;
     Trap trap;
+    Wall randomWall;
 
     boolean completed = false;
 
@@ -19,7 +20,10 @@ public class Level {
         this.stone = new Stone(map, 'O');
         this.hole = new Hole(map, 'X');
         this.trap = new Trap(map, '8');
-        this.walls = new Walls(map, 0, '+');
+
+        //walls need to be placed on the map at the end, because random walls checks space availability with respect to other items
+        //random walls appear on maps bigger than 6
+        this.walls = new Walls(map, '+');
     }
 
     public void resetLevel() {

@@ -1,16 +1,12 @@
-import java.util.Random;
-
 public class Walls {
-
-    Random generator = new Random();
     public Coordinates[] positions;
     Coordinates[] initialPosition;
     char symbol;
     int randomWallsNumber;
 
-    public Walls(char[][] map, int randomWallsNumber, char initialSymbol) {
+    public Walls(char[][] map, char initialSymbol) {
         symbol = initialSymbol;
-        this.randomWallsNumber = randomWallsNumber;
+        randomWallsNumber =  map.length > 6 ? map.length - 6 : 0; //maybe to be modified
         positions = new Coordinates[calculateExpectedWallCount(randomWallsNumber, map)];
         initialPosition = new Coordinates[positions.length];
         setInitialPosition(map);
@@ -18,6 +14,7 @@ public class Walls {
 
     public void setInitialPosition(char[][] map) {
         int height = map.length;
+
         //Frame
         int wallCounter = 0;
 
@@ -32,13 +29,12 @@ public class Walls {
             }
         }
 
-        //Logic for random walls
-        //for (int i =0; i < randomWallsNumber; i++) {
-            //warunek randomWalls number < height - 3
-          // Wall randomWall = new Wall (map, symbol);
-        //}
+        //random Walls
+        for (int i =0; i < randomWallsNumber; i++) {
+           Wall randomWall = new Wall (map, symbol);
+           positions[wallCounter++] = new Coordinates(randomWall.initialPosition);
+        }
 
-        //może zrobić osobny obiekt dla ramki, a osobny dla ranodm walls, a nie wrzucać wszystkiego w logikę walls. To brzmi sensownie.
 
         //Saving initial positions
         for (int i = 0; i < positions.length; i++) {

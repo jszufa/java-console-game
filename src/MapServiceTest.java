@@ -248,7 +248,7 @@ class MapServiceTest {
         customSetup_for_handleCommand_tests();
         MapService mapService = new MapService();
 
-        map[futureMove.x][futureMove.y] = 'q'; //nothing is on the hero's way
+        map[futureMove.x][futureMove.y] = 'q'; //unknown symbol is on the hero's way
 
         //act & assert
         assertThrows(IllegalArgumentException.class, () -> mapService.handleCommand(input, mockedLevel, mockedGame));

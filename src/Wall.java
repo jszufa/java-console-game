@@ -5,13 +5,13 @@ public class Wall extends Entity {
     public Wall(char[][] map, char initialSymbol) {
         super(map, initialSymbol);
     }
-    //needs to be set on the map at the end
+    //needs to be placed on the map at the end, because it checks space availability with respect to other items
 
     @Override
     public void setInitialPosition(char[][] map) {
         int height = map.length;
 
-        int maxAttempts = (height - 2) * (height - 2);
+        int maxAttempts = (height - 1) * (height - 1);
         int rowIndex;
         int colIndex;
 
@@ -30,11 +30,15 @@ public class Wall extends Entity {
 
             //check if the field is free and if the surrounding fields are free or are walls
             if (
-                    (map[position.x][position.y] == ' ' && map[position.x][position.y] == '\0')
+                    (map[position.x][position.y] == ' ' || map[position.x][position.y] == '\0')
                             && (map[position.x + 1][position.y] == ' ' || map[position.x + 1][position.y] == '\0' || map[position.x + 1][position.y] == this.symbol)
-                            && (map[position.x - 1][position.y] == ' ' || map[position.x - 1][position.y] == '\0' || map[position.x + 1][position.y] == this.symbol)
-                            && (map[position.x][position.y + 1] == ' ' || map[position.x][position.y + 1] == '\0' || map[position.x + 1][position.y] == this.symbol)
-                            && (map[position.x][position.y - 1] == ' ' || map[position.x][position.y - 1] == '\0' || map[position.x + 1][position.y] == this.symbol)
+                            && (map[position.x - 1][position.y] == ' ' || map[position.x - 1][position.y] == '\0' || map[position.x - 1][position.y] == this.symbol)
+                            && (map[position.x][position.y + 1] == ' ' || map[position.x][position.y + 1] == '\0' || map[position.x][position.y + 1] == this.symbol)
+                            && (map[position.x][position.y - 1] == ' ' || map[position.x][position.y - 1] == '\0' || map[position.x][position.y - 1] == this.symbol)
+                            && (map[position.x + 1][position.y + 1] == ' ' || map[position.x + 1][position.y + 1] == '\0' || map[position.x + 1][position.y + 1] == this.symbol)
+                            && (map[position.x + 1][position.y - 1] == ' ' || map[position.x - 1][position.y - 1] == '\0' || map[position.x - 1][position.y - 1] == this.symbol)
+                            && (map[position.x - 1][position.y + 1] == ' ' || map[position.x - 1][position.y + 1] == '\0' || map[position.x - 1][position.y + 1] == this.symbol)
+                            && (map[position.x - 1][position.y - 1] == ' ' || map[position.x - 1][position.y - 1] == '\0' || map[position.x - 1][position.y - 1] == this.symbol)
             ) {
                 break;
             }
@@ -42,12 +46,17 @@ public class Wall extends Entity {
 
         //throw exception if the place is not found after n (maxAttempts) attempts
         if (
-                !((map[position.x][position.y] == ' ' && map[position.x][position.y] == '\0')
+                !((map[position.x][position.y] == ' ' || map[position.x][position.y] == '\0')
                         && (map[position.x + 1][position.y] == ' ' || map[position.x + 1][position.y] == '\0' || map[position.x + 1][position.y] == this.symbol)
-                        && (map[position.x - 1][position.y] == ' ' || map[position.x - 1][position.y] == '\0' || map[position.x + 1][position.y] == this.symbol)
-                        && (map[position.x][position.y + 1] == ' ' || map[position.x][position.y + 1] == '\0' || map[position.x + 1][position.y] == this.symbol)
-                        && (map[position.x][position.y - 1] == ' ' || map[position.x][position.y - 1] == '\0' || map[position.x + 1][position.y] == this.symbol)
+                        && (map[position.x - 1][position.y] == ' ' || map[position.x - 1][position.y] == '\0' || map[position.x - 1][position.y] == this.symbol)
+                        && (map[position.x][position.y + 1] == ' ' || map[position.x][position.y + 1] == '\0' || map[position.x][position.y + 1] == this.symbol)
+                        && (map[position.x][position.y - 1] == ' ' || map[position.x][position.y - 1] == '\0' || map[position.x][position.y - 1] == this.symbol)
+                        && (map[position.x + 1][position.y + 1] == ' ' || map[position.x + 1][position.y + 1] == '\0' || map[position.x + 1][position.y + 1] == this.symbol)
+                        && (map[position.x + 1][position.y - 1] == ' ' || map[position.x - 1][position.y - 1] == '\0' || map[position.x - 1][position.y - 1] == this.symbol)
+                        && (map[position.x - 1][position.y + 1] == ' ' || map[position.x - 1][position.y + 1] == '\0' || map[position.x - 1][position.y + 1] == this.symbol)
+                        && (map[position.x - 1][position.y - 1] == ' ' || map[position.x - 1][position.y - 1] == '\0' || map[position.x - 1][position.y - 1] == this.symbol)
         )) {
+            throw new IllegalStateException("Unable to find a free position for random wall after" + maxAttempts + " attempts");
         }
 
         //place wall's symbol on the free position and remember it
