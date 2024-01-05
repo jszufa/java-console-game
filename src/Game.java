@@ -8,7 +8,7 @@ public class Game {
     int mapHeight;
 
     public Game(int levelCount, int mapHeight, LevelFactory levelFactory) {
-        this.mapService = new MapService();
+        mapService = new MapService();
         this.levelFactory = levelFactory;
         this.levelCount = levelCount;
         this.mapHeight = mapHeight;
@@ -28,7 +28,7 @@ public class Game {
                 printMap(actualLevel);
 
                 if (i == levelCount && actualLevel.completed) {
-                    victory = true; //just for clarity, there is nothing functional about it yet ;)
+                    victory = true; //just for clarity
                     printVictory();
                     break outerLoop;
                 } else if (actualLevel.completed) {
@@ -84,8 +84,6 @@ public class Game {
     }
 
     public void clearConsole() {
-        ConsoleHandlerImpl console = new ConsoleHandlerImpl();
-
         int linesToClear = 50;
         for (int i = 0; i < linesToClear; i++) {
             console.displayOutputLn();
