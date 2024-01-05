@@ -6,8 +6,8 @@ public class Walls {
 
     public Walls(char[][] map, char initialSymbol) {
         symbol = initialSymbol;
-        randomWallsNumber =  map.length > 6 ? map.length - 6 : 0; //maybe to be modified
-        positions = new Coordinates[calculateExpectedWallCount(randomWallsNumber, map)];
+        randomWallsNumber = map.length > 6 ? map.length - 6 : 0; //maybe to be modified
+        positions = new Coordinates[calculateExpectedWallCount(map)];
         initialPositions = new Coordinates[positions.length];
         setInitialPositions(map);
     }
@@ -30,11 +30,10 @@ public class Walls {
         }
 
         //random Walls
-        for (int i =0; i < randomWallsNumber; i++) {
-           Wall randomWall = new Wall (map, symbol);
-           positions[wallCounter++] = new Coordinates(randomWall.initialPosition);
+        for (int i = 0; i < randomWallsNumber; i++) {
+            Wall randomWall = new Wall(map, symbol);
+            positions[wallCounter++] = new Coordinates(randomWall.initialPosition);
         }
-
 
         //Saving initial positions
         for (int i = 0; i < positions.length; i++) {
@@ -42,10 +41,10 @@ public class Walls {
         }
     }
 
-    private int calculateExpectedWallCount(int randomWallsCount, char[][] map) {
+    private int calculateExpectedWallCount(char[][] map) {
         int height = map.length;
         int frame = (height - 1) * 4;
-        return frame + randomWallsCount;
+        return frame + randomWallsNumber;
     }
 
 }

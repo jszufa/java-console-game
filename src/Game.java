@@ -2,15 +2,25 @@ public class Game {
     ConsoleHandlerImpl console = new ConsoleHandlerImpl();
     boolean victory = false;
     boolean gameOver = false;
+    MapService mapService;
+    LevelFactory levelFactory;
+    int levelCount;
+    int mapHeight;
 
-    public Game(int levelCount, int mapHeight) {
+    public Game(int levelCount, int mapHeight, LevelFactory levelFactory) {
+        this.mapService = new MapService();
+        this.levelFactory = levelFactory;
+        this.levelCount = levelCount;
+        this.mapHeight = mapHeight;
+    }
+
+    public void start() {
         String input;
-        MapService mapService = new MapService();
-
+        
         //game loop
-        outerloop:
+        outerLoop:
         for (int i = 1; i <= levelCount; i++) {
-            Level actualLevel = new Level("Level" + i, mapHeight);
+            Level actualLevel = levelFactory.createLevel("Level" + i, mapHeight);
 
             while (true) {
                 clearConsole();
@@ -20,16 +30,13 @@ public class Game {
                 if (i == levelCount && actualLevel.completed) {
                     victory = true; //just for clarity, there is nothing functional about it yet ;)
                     printVictory();
-                    break outerloop;
-                }
-                else if (actualLevel.completed) {
-                    continue outerloop;
-                }
-                else if (gameOver) {
+                    break outerLoop;
+                } else if (actualLevel.completed) {
+                    continue outerLoop;
+                } else if (gameOver) {
                     printGameOver();
-                    break outerloop;
+                    break outerLoop;
                 }
-
 
                 printInputMessage();
                 input = console.readInput();
@@ -38,14 +45,13 @@ public class Game {
                     continue;
                 }
                 if (input.equalsIgnoreCase("quit")) {
-                    break outerloop;
+                    break outerLoop;
                 }
-
                 mapService.handleCommand(input, actualLevel, this);
             }
         }
     }
-
+    
 
     public void printMap(Level level) {
         for (char[] row : level.map) {
@@ -77,7 +83,7 @@ public class Game {
         console.displayOutputLn(level.label);
     }
 
-    public static void clearConsole() {
+    public void clearConsole() {
         ConsoleHandlerImpl console = new ConsoleHandlerImpl();
 
         int linesToClear = 50;
