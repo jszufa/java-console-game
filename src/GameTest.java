@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -112,9 +113,10 @@ public class GameTest {
         doNothing().when(spyGame).printLevelLabel(mockedLevel);
         doNothing().when(spyGame).printMap(mockedLevel);
         doNothing().when(spyGame).printInputMessage();
-        when(mockedConsole.readInput()).thenReturn(input);
+        //thanAnswer - dynamicznie generuje odpowiedź zmockowanej klasy
+        //thanReturn - generuje statycznie. Czyli tylko raz odczyta wartość, którą ma zwracać.
+        when(mockedConsole.readInput()).thenAnswer(invocationOnMock -> input);
 
-        //hmmm
         doAnswer(invocationOnMock ->
         {input = "quit"; return null;
         }).when(mockedLevel).resetLevel();
