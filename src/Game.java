@@ -1,14 +1,15 @@
 public class Game {
-    ConsoleHandlerImpl console = new ConsoleHandlerImpl();
+    ConsoleHandler console;
+    IMapService mapService;
+    LevelFactory levelFactory;
     boolean victory = false;
     boolean gameOver = false;
-    MapService mapService;
-    LevelFactory levelFactory;
     int levelCount;
     int mapHeight;
 
-    public Game(int levelCount, int mapHeight, LevelFactory levelFactory) {
-        mapService = new MapService();
+    public Game(int levelCount, int mapHeight, ConsoleHandler console, IMapService mapService, LevelFactory levelFactory) {
+        this.console = console;
+        this.mapService = mapService;
         this.levelFactory = levelFactory;
         this.levelCount = levelCount;
         this.mapHeight = mapHeight;
@@ -47,7 +48,7 @@ public class Game {
                 if (input.equalsIgnoreCase("quit")) {
                     break outerLoop;
                 }
-                mapService.handleCommand(input, actualLevel, this);
+                mapService.handleCommand(input, actualLevel,this);
             }
         }
     }
@@ -58,7 +59,7 @@ public class Game {
             for (char element : row) {
                 console.displayOutput(element + "  ");
             }
-            console.displayOutputLn();
+            console.displayOutputEmptyLn();
         }
     }
 
@@ -75,7 +76,7 @@ public class Game {
         console.displayOutputLn("------YOU-LOST--------");
         console.displayOutputLn("------BUT-STILL--------");
         console.displayOutputLn("----ENJOY-GOBLIN-SONG-----");
-        console.displayOutputLn();
+        console.displayOutputEmptyLn();
         console.displayOutputLn("\"Even though you had a map...\n You stupidly fell into our trap. \n Don't cry don't cry \n You'll be our pie\"");
     }
 
@@ -86,7 +87,7 @@ public class Game {
     public void clearConsole() {
         int linesToClear = 50;
         for (int i = 0; i < linesToClear; i++) {
-            console.displayOutputLn();
+            console.displayOutputEmptyLn();
         }
     }
 }

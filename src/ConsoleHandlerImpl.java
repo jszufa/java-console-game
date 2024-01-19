@@ -20,7 +20,7 @@ public class ConsoleHandlerImpl implements ConsoleHandler {
     }
 
     @Override
-    public void displayOutputLn() {
+    public void displayOutputEmptyLn() {
         System.out.println();
     }
 }

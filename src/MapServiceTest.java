@@ -21,6 +21,7 @@ class MapServiceTest {
     char command;
     Coordinates futureMove;
     Coordinates futureStoneMove;
+    ConsoleHandler mockedConsole;
 
     @BeforeEach
     public void setUp() {
@@ -31,12 +32,13 @@ class MapServiceTest {
         mockedHole = mock(Hole.class);
         mockedTrap = mock(Trap.class);
         mockedWalls = mock(Walls.class);
+        mockedConsole = mock(ConsoleHandler.class);
     }
 
     @Test
     void q_shouldReturnFalse_onValidateCommand() {
         //arrange
-        MapService mapService = new MapService();
+        MapService mapService = new MapService(mockedConsole);
         char command = 'q';
 
         //act
@@ -49,7 +51,7 @@ class MapServiceTest {
     @Test
     void capitalW_shouldReturnTrue_onValidateCommand() {
         //arrange
-        MapService mapService = new MapService();
+        MapService mapService = new MapService(mockedConsole);
         char command = 'W';
 
         //act
@@ -104,7 +106,7 @@ class MapServiceTest {
     void stoneOnHole_shouldCompleteLevel() {
         //arrange
         customSetup_for_handleCommand_tests();
-        MapService mapService = new MapService();
+        MapService mapService = new MapService(mockedConsole);
 
         mockedStone.symbol = 'O';
         map[futureMove.x][futureMove.y] = 'O'; //stone is on the hero's way
@@ -123,7 +125,7 @@ class MapServiceTest {
     void stoneOnTrap_should_loseGame() {
         //arrange
         customSetup_for_handleCommand_tests();
-        MapService mapService = new MapService();
+        MapService mapService = new MapService(mockedConsole);
 
         mockedStone.symbol = 'O';
         map[futureMove.x][futureMove.y] = 'O'; //stone is on the hero's way
@@ -142,7 +144,7 @@ class MapServiceTest {
     void stoneOnWall_shouldNot_moveItems() {
         //arrange
         customSetup_for_handleCommand_tests();
-        MapService mapService = new MapService();
+        MapService mapService = new MapService(mockedConsole);
 
         mockedStone.symbol = 'O';
         map[futureMove.x][futureMove.y] = 'O'; //stone is on the hero's way
@@ -162,7 +164,7 @@ class MapServiceTest {
     void stoneOnEmpty_should_moveItems() {
         //arrange
         customSetup_for_handleCommand_tests();
-        MapService mapService = new MapService();
+        MapService mapService = new MapService(mockedConsole);
 
         mockedStone.symbol = 'O';
         map[futureMove.x][futureMove.y] = 'O'; //stone is on the hero's way
@@ -185,7 +187,7 @@ class MapServiceTest {
     void heroOnTrap_should_endGame() {
         //arrange
         customSetup_for_handleCommand_tests();
-        MapService mapService = new MapService();
+        MapService mapService = new MapService(mockedConsole);
 
         mockedTrap.symbol = '8';
         map[futureMove.x][futureMove.y] = '8'; //trap is on the hero's way
@@ -201,7 +203,7 @@ class MapServiceTest {
     void heroOnHole_should_endGame() {
         //arrange
         customSetup_for_handleCommand_tests();
-        MapService mapService = new MapService();
+        MapService mapService = new MapService(mockedConsole);
 
         mockedHole.symbol = 'X';
         map[futureMove.x][futureMove.y] = 'X'; //hole is on the hero's way
@@ -217,7 +219,7 @@ class MapServiceTest {
     void heroOnWall_shouldNot_move() {
         //arrange
         customSetup_for_handleCommand_tests();
-        MapService mapService = new MapService();
+        MapService mapService = new MapService(mockedConsole);
 
         mockedWalls.symbol = '+';
         map[futureMove.x][futureMove.y] = '+'; //wall is on the hero's way
@@ -232,7 +234,7 @@ class MapServiceTest {
     @Test
     void heroOnEmpty_should_move() {
         customSetup_for_handleCommand_tests();
-        MapService mapService = new MapService();
+        MapService mapService = new MapService(mockedConsole);
 
         map[futureMove.x][futureMove.y] = ' '; //nothing is on the hero's way
 
@@ -246,7 +248,7 @@ class MapServiceTest {
     @Test
     void heroOnUnknown_should_throwException() {
         customSetup_for_handleCommand_tests();
-        MapService mapService = new MapService();
+        MapService mapService = new MapService(mockedConsole);
 
         map[futureMove.x][futureMove.y] = 'q'; //unknown symbol is on the hero's way
 

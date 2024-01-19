@@ -1,6 +1,11 @@
 import static java.lang.Character.toLowerCase;
 
-public class MapService {
+public class MapService implements IMapService {
+
+    ConsoleHandler console;
+    public MapService(ConsoleHandler console) {
+        this.console = console;
+    }
 
     public void handleCommand(String input, Level level, Game game) {
 
@@ -65,8 +70,6 @@ public class MapService {
     }
 
     public void printControlsMessage() {
-        ConsoleHandlerImpl console = new ConsoleHandlerImpl();
-
         console.displayOutputLn("Command not recognized.");
         console.displayOutputLn("Use W, S, A, D to move around.");
         console.displayOutputLn("Type QUIT to quit the game or RESET to reset the level.");

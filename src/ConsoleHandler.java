@@ -6,5 +6,5 @@ public interface ConsoleHandler {
 
     void displayOutputLn(String output);
 
-    void displayOutputLn(); //empty line
+    void displayOutputEmptyLn();
 }
