@@ -1,7 +1,7 @@
-public class Trap extends Hero {
+public class Trap extends Entity {
 
-    public Trap(int height, char[][] matrix, char initialSymbol) {
-        super(height, matrix, initialSymbol);
+    public Trap(char[][] map, char initialSymbol) {
+        super(map, initialSymbol);
     }
 
 }
