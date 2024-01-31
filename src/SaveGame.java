@@ -5,27 +5,27 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class SaveGame implements ISaveGame{
-    private int levelCount;
-    private int actualLevelNum;
-    private int mapHeight;
-    private SimpleLevel level;
+    public int levelCount;
+    public int actualLevelNum;
+    public int mapHeight;
+    public SimpleLevel level;
 
     public SaveGame(){}
-    public SaveGame(Game game, Level actualLevel, int actualLevelNum) {
+    public SaveGame(Game game, Level actualLevel) {
 
         this.levelCount = game.levelCount;
-        this.actualLevelNum = actualLevelNum;
+        this.actualLevelNum = game.actualLevelNum;
         this.mapHeight = game.mapHeight;
         this.level = new SimpleLevel(actualLevel);
     }
 
     class SimpleLevel {
-        private String label;
-        private SimpleEntity hero;
-        private SimpleEntity stone;
-        private SimpleEntity hole;
-        private SimpleEntity trap;
-        private SimpleWalls walls;
+        public String label;
+        public SimpleEntity hero;
+        public SimpleEntity stone;
+        public SimpleEntity hole;
+        public SimpleEntity trap;
+        public SimpleWalls walls;
 
 
         public SimpleLevel(Level level) {
@@ -39,9 +39,9 @@ public class SaveGame implements ISaveGame{
     }
 
     class SimpleEntity {
-        private Coordinates position;
-        private Coordinates initialPosition;
-        private char symbol;
+        public Coordinates position;
+        public Coordinates initialPosition;
+        public char symbol;
 
         public SimpleEntity(Entity entity) {
             this.position = entity.position;
@@ -51,10 +51,10 @@ public class SaveGame implements ISaveGame{
     }
 
     class SimpleWalls {
-        private Coordinates[] positions;
-        private Coordinates[] initialPositions;
-        private char symbol;
-        private int randomWallsNumber;
+        public Coordinates[] positions;
+        public Coordinates[] initialPositions;
+        public char symbol;
+        public int randomWallsNumber;
 
         public SimpleWalls(Walls walls) {
             this.positions = walls.positions;
@@ -64,19 +64,19 @@ public class SaveGame implements ISaveGame{
         }
     }
 
-    public void save(Game game, Level level, int actualLevelNum) {
+    public void save(Game game, Level level) {
 
         String filePath = "save.json";
 
-        SaveGame saveGame = new SaveGame(game, level, actualLevelNum);
+        SaveGame saveGame = new SaveGame(game, level);
         Gson gson = new Gson();
 
         //convert saveGame object to JSON
-        String myJson = gson.toJson(saveGame);
+        String saveJson = gson.toJson(saveGame);
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-            writer.write(myJson);
+            writer.write(saveJson);
             writer.close();
 
         } catch (IOException e) {
