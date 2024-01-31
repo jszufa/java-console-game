@@ -27,8 +27,7 @@ public class Game {
         
         //game loop
         outerLoop:
-        for (int i = 1; i <= levelCount; i++) {
-            actualLevelNum = i;
+        for (actualLevelNum = 1; actualLevelNum <= levelCount; actualLevelNum++) {
             Level actualLevel = levelFactory.createLevel("Level" + actualLevelNum, mapHeight);
 
             while (true) {
@@ -36,7 +35,7 @@ public class Game {
                 printLevelLabel(actualLevel);
                 printMap(actualLevel);
 
-                if (i == levelCount && actualLevel.completed) {
+                if (actualLevelNum == levelCount && actualLevel.completed) {
                     victory = true; //just for clarity
                     printVictory();
                     break outerLoop;
@@ -58,6 +57,10 @@ public class Game {
                 }
                 if (input.equalsIgnoreCase("save")) {
                     saveGame.save(this, actualLevel);
+                    continue;
+                }
+                if (input.equalsIgnoreCase("load")) {
+                    actualLevel = this.loadGame();
                     continue;
                 }
                 mapService.handleCommand(input, actualLevel,this);
@@ -103,7 +106,8 @@ public class Game {
         }
     }
 
-    public void loadGame() {
+    //to prawdopodobnie powinno być w klasie saveGame albo innej... w każdym razie powinno być oddzielone od klasy Game
+    public Level loadGame() {
         //reading data from the file
         String filePath = "save.json";
         String saveJson;
@@ -122,63 +126,12 @@ public class Game {
         Gson gson = new Gson();
         SaveGame saveGame = gson.fromJson(saveJson, SaveGame.class);
 
-        //Odczytaj wartości konkretnych pól obiektu SaveGame -- muszą mieć ustawiony dostęp na public, inaczej nie mam dostępu, chyba że metoda loadGame będzie działać na SaveGame
-        System.out.println(saveGame.level.label);
-
+        //load saved game fields
         this.levelCount = saveGame.levelCount;
         this.actualLevelNum = saveGame.actualLevelNum;
         this.mapHeight = saveGame.mapHeight;
 
-        //Stwórz nową grę lub zaktualizuj wartości obecnej gry
-        //np. this.levelCount = x
-        // i = y (wydaje się, że fajnie byłoby dodać iterator jako pole obiektu - będzie też wtedy łatwiej odczytać je w save game i nie trzeba będzie go przekazywać)
-        //actualLevel = new Level (i tutaj wstrzykuję wartości z save'a), tylko odpowiedni konstruktor trzeba by zrobić.
-        //To chyba będzie najprostsze
-
-        //mogę też stworzyć nową pętlę gry i zobaczyć co się w praktyce zmieni...
-        String input;
-
-        //game loop
-        outerLoop:
-        for (int i = actualLevelNum; i <= levelCount; i++) {
-
-            Level actualLevel = levelFactory.createLevel("Level" + actualLevelNum, mapHeight);
-            //tutaj powinno być coś w rodzaju loadLevel // albo level.load
-
-            while (true) {
-                clearConsole();
-                printLevelLabel(actualLevel);
-                printMap(actualLevel);
-
-                if (i == levelCount && actualLevel.completed) {
-                    victory = true; //just for clarity
-                    printVictory();
-                    break outerLoop;
-                } else if (actualLevel.completed) {
-                    continue outerLoop;
-                } else if (gameOver) {
-                    printGameOver();
-                    break outerLoop;
-                }
-
-                printInputMessage();
-                input = console.readInput();
-                if (input.equalsIgnoreCase("reset")) {
-                    actualLevel.resetLevel();
-                    continue;
-                }
-                if (input.equalsIgnoreCase("quit")) {
-                    break outerLoop;
-                }
-                if (input.equalsIgnoreCase("save")) {
-                    saveGame.save(this, actualLevel);
-                    continue;
-                }
-                mapService.handleCommand(input, actualLevel,this);
-            }
-        }
-
-
-        //na koniec można otestować nowy kod, który napisałem, ale wcześniej lepiej napisać do Miśka
+        //return saved level
+        return levelFactory.loadLevel(saveGame.level, mapHeight);
     }
 }

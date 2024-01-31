@@ -64,6 +64,7 @@ public class SaveGame implements ISaveGame{
         }
     }
 
+    //może to też powinno być osobno jako GameSaver - dla klarowności, a nie pod SaveGame...
     public void save(Game game, Level level) {
 
         String filePath = "save.json";

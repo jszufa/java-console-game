@@ -26,15 +26,11 @@ public class Level {
     public Level(SaveGame.SimpleLevel loadedLevel, int mapHeight) {
         this.label = loadedLevel.label;
         this.map = createEmptyMap(mapHeight);
-        this.hero = new Entity(loadedLevel.hero);
-        this.stone = new Entity(loadedLevel.stone);
-        this.hole = new Entity(loadedLevel.hole);
-        this.trap = new Entity(loadedLevel.trap);
-        this.walls = new Walls(loadedLevel.walls);
-
-        //teraz przydałoby się coś ala printposition dla każdego obiektu na mapie...
-        // (czyli mam współrzędne każdego obiektu, fajnie żeby je na raz wydrukować, albo, żeby się każdy sam drukował - bo wiadomo, że nie będzie kolizji)
-        //tutaj mogłaby się przydać mapa, która trzyma wszystko ale co tam.
+        this.hero = new Entity(loadedLevel.hero, map);
+        this.stone = new Entity(loadedLevel.stone, map);
+        this.hole = new Entity(loadedLevel.hole, map);
+        this.trap = new Entity(loadedLevel.trap, map);
+        this.walls = new Walls(loadedLevel.walls, map);
     }
 
     public void resetLevel() {
