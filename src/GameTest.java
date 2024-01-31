@@ -11,6 +11,7 @@ public class GameTest {
     LevelFactory mockedLevelFactory;
     ConsoleHandler mockedConsole;
     IMapService mockedMapService;
+    ISaveGame mockedSaveGame;
     String input;
 
     @BeforeEach
@@ -20,6 +21,7 @@ public class GameTest {
         mockedLevelFactory = mock(LevelFactory.class);
         mockedConsole = mock(ConsoleHandler.class);
         mockedMapService = mock(MapService.class);
+        mockedSaveGame = mock(ISaveGame.class);
     }
 
     @Test
@@ -30,7 +32,7 @@ public class GameTest {
 
         //mock - tworzy imitację klasy - bierze pod uwagę tylko szkielet
         //spy - bierze rzeczywistą instancję, śledzi jej zachowanie i może zmieniać działanie programu
-        Game game = new Game(levelCount, mapHeight, mockedConsole, mockedMapService, mockedLevelFactory);
+        Game game = new Game(levelCount, mapHeight, mockedConsole, mockedMapService, mockedLevelFactory, mockedSaveGame);
         Game spyGame = spy(game);
 
         for (int i = 1; i <= levelCount; i++) {
@@ -56,7 +58,7 @@ public class GameTest {
         String label = "Level1";
         int levelCount = 1;
 
-        Game game = new Game(levelCount, mapHeight, mockedConsole, mockedMapService, mockedLevelFactory);
+        Game game = new Game(levelCount, mapHeight, mockedConsole, mockedMapService, mockedLevelFactory, mockedSaveGame);
         Game spyGame = spy(game);
 
         when(mockedLevelFactory.createLevel(label, mapHeight)).thenReturn(mockedLevel);
@@ -81,7 +83,7 @@ public class GameTest {
         int levelCount = 1;
         String input = "quit";
 
-        Game game = new Game(levelCount, mapHeight, mockedConsole, mockedMapService, mockedLevelFactory);
+        Game game = new Game(levelCount, mapHeight, mockedConsole, mockedMapService, mockedLevelFactory, mockedSaveGame);
         Game spyGame = spy(game);
 
         when(mockedLevelFactory.createLevel(label, mapHeight)).thenReturn(mockedLevel);
@@ -105,7 +107,7 @@ public class GameTest {
         int levelCount = 1;
         this.input = "reset";
 
-        Game game = new Game(levelCount, mapHeight, mockedConsole, mockedMapService, mockedLevelFactory);
+        Game game = new Game(levelCount, mapHeight, mockedConsole, mockedMapService, mockedLevelFactory, mockedSaveGame);
         Game spyGame = spy(game);
 
         when(mockedLevelFactory.createLevel(label, mapHeight)).thenReturn(mockedLevel);

@@ -1,22 +1,35 @@
-public class Save {
+import com.google.gson.Gson;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class SaveGame implements ISaveGame{
     private int levelCount;
+    private int actualLevelNum;
+    private int mapHeight;
     private SimpleLevel level;
 
-    public Save(Game game, Level actualLevel) {
+    public SaveGame(){}
+    public SaveGame(Game game, Level actualLevel, int actualLevelNum) {
 
         this.levelCount = game.levelCount;
-        //problem comes here, because actualLevel is complex, and I need just a simple version of actualLevel
+        this.actualLevelNum = actualLevelNum;
+        this.mapHeight = game.mapHeight;
         this.level = new SimpleLevel(actualLevel);
     }
 
     class SimpleLevel {
+        private String label;
         private SimpleEntity hero;
         private SimpleEntity stone;
         private SimpleEntity hole;
         private SimpleEntity trap;
         private SimpleWalls walls;
 
+
         public SimpleLevel(Level level) {
+            this.label = level.label;
             this.hero = new SimpleEntity(level.hero);
             this.stone = new SimpleEntity(level.stone);
             this.hole = new SimpleEntity(level.hole);
@@ -50,5 +63,24 @@ public class Save {
             this.randomWallsNumber = walls.randomWallsNumber;
         }
     }
+
+    public void save(Game game, Level level, int actualLevelNum) {
+
+        String filePath = "save.json";
+
+        SaveGame saveGame = new SaveGame(game, level, actualLevelNum);
+        Gson gson = new Gson();
+
+        //convert saveGame object to JSON
+        String myJson = gson.toJson(saveGame);
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            writer.write(myJson);
+            writer.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
-//this.currentLevelNum =

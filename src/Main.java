@@ -4,7 +4,8 @@ public class Main {
         LevelFactory defaultLevelFactory = new DefaultLevelFactory();
         ConsoleHandler console = new ConsoleHandlerImpl();
         IMapService mapService = new MapService(console);
-        Game game = new Game(3, 8, console, mapService, defaultLevelFactory);
+        ISaveGame saveGame = new SaveGame();
+        Game game = new Game(3, 8, console, mapService, defaultLevelFactory, saveGame);
         game.start();
 
     }

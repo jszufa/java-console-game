@@ -7,15 +7,17 @@ public class Game {
     ConsoleHandler console;
     IMapService mapService;
     LevelFactory levelFactory;
+    ISaveGame saveGame;
     boolean victory = false;
     boolean gameOver = false;
     int levelCount;
     int mapHeight;
 
-    public Game(int levelCount, int mapHeight, ConsoleHandler console, IMapService mapService, LevelFactory levelFactory) {
+    public Game(int levelCount, int mapHeight, ConsoleHandler console, IMapService mapService, LevelFactory levelFactory, ISaveGame saveGame) {
         this.console = console;
         this.mapService = mapService;
         this.levelFactory = levelFactory;
+        this.saveGame = saveGame;
         this.levelCount = levelCount;
         this.mapHeight = mapHeight;
     }
@@ -54,7 +56,7 @@ public class Game {
                     break outerLoop;
                 }
                 if (input.equalsIgnoreCase("save")) {
-                    this.save(actualLevel);
+                    saveGame.save(this, actualLevel, i);
                     continue;
                 }
                 mapService.handleCommand(input, actualLevel,this);
@@ -98,41 +100,5 @@ public class Game {
         for (int i = 0; i < linesToClear; i++) {
             console.displayOutputEmptyLn();
         }
-    }
-
-    public void save(Level level) {
-
-        String data = "asdfsdf";
-        String filePath = "save.json";
-        //potrzebuję zapisać:
-        //stan levelu, czyli współrzędne wszystkich obiektów
-        //stan początkowy levelu, żeby można go było zresetować
-        //numer levelu oraz ile jest wszystkich leveli
-        //czyli np. levelCount: levelCount
-
-        String strLevelCount = String.valueOf(levelCount);
-        data = "levelCount: " + strLevelCount;
-
-        String strLevelHero = String.valueOf(level.hero.position);
-        data = "levelHeroPosition: " + strLevelHero;
-
-        //potrzebuję stworzyć sobie strukturę bazy danych, czyli jak to będzie zapisywane - czego użyć..
-
-
-        Save save = new Save(this, level);
-        Gson gson = new Gson();
-
-        //convert to JSON
-        String myJson = gson.toJson(save);
-
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-            writer.write(myJson);
-            writer.close();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
     }
 }
