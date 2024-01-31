@@ -7,7 +7,6 @@ public class Level {
     Stone stone;
     Hole hole;
     Trap trap;
-    Wall randomWall;
 
     boolean completed = false;
 

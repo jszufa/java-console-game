@@ -1,0 +1,1 @@
+{"levelCount":3,"level":{"hero":{"position":{"x":2,"y":3},"initialPosition":{"x":2,"y":3},"symbol":"H"},"stone":{"position":{"x":3,"y":3},"initialPosition":{"x":3,"y":3},"symbol":"O"},"hole":{"position":{"x":1,"y":1},"initialPosition":{"x":1,"y":1},"symbol":"X"},"trap":{"position":{"x":2,"y":6},"initialPosition":{"x":2,"y":6},"symbol":"8"}}}
