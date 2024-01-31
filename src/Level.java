@@ -3,10 +3,10 @@ public class Level {
     String label;
     char[][] map;
     Walls walls;
-    Hero hero;
-    Stone stone;
-    Hole hole;
-    Trap trap;
+    Entity hero;
+    Entity stone;
+    Entity hole;
+    Entity trap;
 
     boolean completed = false;
 
@@ -21,6 +21,20 @@ public class Level {
         //walls need to be placed on the map at the end, because random walls checks space availability with respect to other items
         //random walls appear on maps bigger than 6
         this.walls = new Walls(map, '+');
+    }
+
+    public Level(SaveGame.SimpleLevel loadedLevel, int mapHeight) {
+        this.label = loadedLevel.label;
+        this.map = createEmptyMap(mapHeight);
+        this.hero = new Entity(loadedLevel.hero);
+        this.stone = new Entity(loadedLevel.stone);
+        this.hole = new Entity(loadedLevel.hole);
+        this.trap = new Entity(loadedLevel.trap);
+        this.walls = new Walls(loadedLevel.walls);
+
+        //teraz przydałoby się coś ala printposition dla każdego obiektu na mapie...
+        // (czyli mam współrzędne każdego obiektu, fajnie żeby je na raz wydrukować, albo, żeby się każdy sam drukował - bo wiadomo, że nie będzie kolizji)
+        //tutaj mogłaby się przydać mapa, która trzyma wszystko ale co tam.
     }
 
     public void resetLevel() {

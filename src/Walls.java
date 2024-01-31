@@ -12,6 +12,13 @@ public class Walls {
         setInitialPositions(map);
     }
 
+    public Walls (SaveGame.SimpleWalls loadedWalls) {
+        symbol = loadedWalls.symbol;
+        randomWallsNumber = loadedWalls.randomWallsNumber;
+        positions = loadedWalls.positions;
+        initialPositions = loadedWalls.initialPositions;
+    }
+
     public void setInitialPositions(char[][] map) {
         int height = map.length;
 

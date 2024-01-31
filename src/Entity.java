@@ -11,6 +11,12 @@ public class Entity implements Item {
         setInitialPosition(map);
     }
 
+    public Entity(SaveGame.SimpleEntity loadedEntity) {
+        symbol = loadedEntity.symbol;
+        position = loadedEntity.position;
+        initialPosition = loadedEntity.initialPosition;
+    }
+
     @Override
     public void setInitialPosition(char[][] map) {
         int height = map.length;
