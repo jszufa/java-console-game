@@ -6,18 +6,18 @@ public class Game {
     ConsoleHandler console;
     IMapService mapService;
     LevelFactory levelFactory;
-    ISaveGame saveGame;
+    IGameService gameService;
     boolean victory = false;
     boolean gameOver = false;
     int levelCount;
     int actualLevelNum;
     int mapHeight;
 
-    public Game(int levelCount, int mapHeight, ConsoleHandler console, IMapService mapService, LevelFactory levelFactory, ISaveGame saveGame) {
+    public Game(int levelCount, int mapHeight, ConsoleHandler console, IMapService mapService, LevelFactory levelFactory, IGameService gameService) {
         this.console = console;
         this.mapService = mapService;
         this.levelFactory = levelFactory;
-        this.saveGame = saveGame;
+        this.gameService = gameService;
         this.levelCount = levelCount;
         this.mapHeight = mapHeight;
     }
@@ -56,7 +56,7 @@ public class Game {
                     break outerLoop;
                 }
                 if (input.equalsIgnoreCase("save")) {
-                    saveGame.save(this, actualLevel);
+                    gameService.save(this, actualLevel);
                     continue;
                 }
                 if (input.equalsIgnoreCase("load")) {
@@ -124,14 +124,14 @@ public class Game {
 
         //converting data into SaveGame object
         Gson gson = new Gson();
-        SaveGame saveGame = gson.fromJson(saveJson, SaveGame.class);
+        GameState gameState = gson.fromJson(saveJson, GameState.class);
 
         //load saved game fields
-        this.levelCount = saveGame.levelCount;
-        this.actualLevelNum = saveGame.actualLevelNum;
-        this.mapHeight = saveGame.mapHeight;
+        this.levelCount = gameState.levelCount;
+        this.actualLevelNum = gameState.actualLevelNum;
+        this.mapHeight = gameState.mapHeight;
 
         //return saved level
-        return levelFactory.loadLevel(saveGame.level, mapHeight);
+        return levelFactory.loadLevel(gameState.level, mapHeight);
     }
 }

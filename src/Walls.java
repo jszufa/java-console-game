@@ -12,7 +12,7 @@ public class Walls {
         setInitialPositions(map);
     }
 
-    public Walls(SaveGame.SimpleWalls loadedWalls, char[][] map) {
+    public Walls(GameState.SimpleWalls loadedWalls, char[][] map) {
         symbol = loadedWalls.symbol;
         randomWallsNumber = loadedWalls.randomWallsNumber;
         positions = loadedWalls.positions;

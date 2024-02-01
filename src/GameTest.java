@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -11,7 +10,7 @@ public class GameTest {
     LevelFactory mockedLevelFactory;
     ConsoleHandler mockedConsole;
     IMapService mockedMapService;
-    ISaveGame mockedSaveGame;
+    IGameService mockedSaveGame;
     String input;
 
     @BeforeEach
@@ -21,7 +20,7 @@ public class GameTest {
         mockedLevelFactory = mock(LevelFactory.class);
         mockedConsole = mock(ConsoleHandler.class);
         mockedMapService = mock(MapService.class);
-        mockedSaveGame = mock(ISaveGame.class);
+        mockedSaveGame = mock(IGameService.class);
     }
 
     @Test

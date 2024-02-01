@@ -23,7 +23,7 @@ public class Level {
         this.walls = new Walls(map, '+');
     }
 
-    public Level(SaveGame.SimpleLevel loadedLevel, int mapHeight) {
+    public Level(GameState.SimpleLevel loadedLevel, int mapHeight) {
         this.label = loadedLevel.label;
         this.map = createEmptyMap(mapHeight);
         this.hero = new Entity(loadedLevel.hero, map);

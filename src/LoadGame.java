@@ -24,10 +24,10 @@ public class LoadGame {
 
         //converting data into SaveGame object
         Gson gson = new Gson();
-        SaveGame saveGame = gson.fromJson(saveJson, SaveGame.class);
+        GameState gameState = gson.fromJson(saveJson, GameState.class);
 
         //Odczytaj wartości konkretnych pól obiektu SaveGame -- muszą mieć ustawiony dostęp na public, inaczej nie mam dostępu
-        System.out.println(saveGame.level.label);
+        System.out.println(gameState.level.label);
 
 
         //Stwórz nową grę lub zaktualizuj wartości obecnej gry

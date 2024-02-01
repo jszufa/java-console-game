@@ -5,7 +5,7 @@ public class DefaultLevelFactory implements LevelFactory {
     }
 
     @Override
-    public Level loadLevel(SaveGame.SimpleLevel loadedLevel, int mapHeight){
+    public Level loadLevel(GameState.SimpleLevel loadedLevel, int mapHeight){
         return new Level(loadedLevel, mapHeight);
     }
 

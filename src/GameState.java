@@ -1,17 +1,10 @@
-import com.google.gson.Gson;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-
-public class SaveGame implements ISaveGame{
+public class GameState {
     public int levelCount;
     public int actualLevelNum;
     public int mapHeight;
     public SimpleLevel level;
 
-    public SaveGame(){}
-    public SaveGame(Game game, Level actualLevel) {
+    public GameState(Game game, Level actualLevel) {
 
         this.levelCount = game.levelCount;
         this.actualLevelNum = game.actualLevelNum;
@@ -61,27 +54,6 @@ public class SaveGame implements ISaveGame{
             this.initialPositions = walls.initialPositions;
             this.symbol = walls.symbol;
             this.randomWallsNumber = walls.randomWallsNumber;
-        }
-    }
-
-    //może to też powinno być osobno jako GameSaver - dla klarowności, a nie pod SaveGame...
-    public void save(Game game, Level level) {
-
-        String filePath = "save.json";
-
-        SaveGame saveGame = new SaveGame(game, level);
-        Gson gson = new Gson();
-
-        //convert saveGame object to JSON
-        String saveJson = gson.toJson(saveGame);
-
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-            writer.write(saveJson);
-            writer.close();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }

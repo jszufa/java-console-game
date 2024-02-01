@@ -11,7 +11,7 @@ public class Entity implements Item {
         setInitialPosition(map);
     }
 
-    public Entity(SaveGame.SimpleEntity loadedEntity, char[][] map) {
+    public Entity(GameState.SimpleEntity loadedEntity, char[][] map) {
         symbol = loadedEntity.symbol;
         position = loadedEntity.position;
         initialPosition = loadedEntity.initialPosition;
