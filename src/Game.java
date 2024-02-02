@@ -1,7 +1,3 @@
-import java.io.*;
-
-import com.google.gson.Gson;
-
 public class Game {
     ConsoleHandler console;
     IMapService mapService;
@@ -56,7 +52,7 @@ public class Game {
                     break outerLoop;
                 }
                 if (input.equalsIgnoreCase("save")) {
-                    gameService.save(this, actualLevel);
+                    this.saveGame(actualLevel);
                     continue;
                 }
                 if (input.equalsIgnoreCase("load")) {
@@ -106,25 +102,14 @@ public class Game {
         }
     }
 
-    //to prawdopodobnie powinno być w klasie saveGame albo innej... w każdym razie powinno być oddzielone od klasy Game
+    public void saveGame(Level level) {
+        GameState gameState = new GameState(this, level);
+        gameService.save(gameState);
+    }
+
     public Level loadGame() {
         //reading data from the file
-        String filePath = "save.json";
-        String saveJson;
-
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            saveJson = reader.readLine();
-            reader.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        //converting data into SaveGame object
-        Gson gson = new Gson();
-        GameState gameState = gson.fromJson(saveJson, GameState.class);
+        GameState gameState = gameService.load();
 
         //load saved game fields
         this.levelCount = gameState.levelCount;
