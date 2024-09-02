@@ -1,4 +1,4 @@
 public interface LevelFactory {
-//po dłuższej pogadance z GPT ;)
     Level createLevel(String label, int mapHeight);
+    Level loadLevel(GameState.SimpleLevel loadedLevel, int mapHeight);
 }

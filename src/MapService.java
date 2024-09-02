@@ -10,10 +10,10 @@ public class MapService implements IMapService {
     public void handleCommand(String input, Level level, Game game) {
 
         var map = level.map;
-        Hero hero = level.hero;
-        Stone stone = level.stone;
-        Hole hole = level.hole;
-        Trap trap = level.trap;
+        Entity hero = level.hero;
+        Entity stone = level.stone;
+        Entity hole = level.hole;
+        Entity trap = level.trap;
         Walls walls = level.walls;
 
         char command = toLowerCase(input.charAt(0));

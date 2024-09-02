@@ -3,11 +3,10 @@ public class Level {
     String label;
     char[][] map;
     Walls walls;
-    Hero hero;
-    Stone stone;
-    Hole hole;
-    Trap trap;
-    Wall randomWall;
+    Entity hero;
+    Entity stone;
+    Entity hole;
+    Entity trap;
 
     boolean completed = false;
 
@@ -22,6 +21,16 @@ public class Level {
         //walls need to be placed on the map at the end, because random walls checks space availability with respect to other items
         //random walls appear on maps bigger than 6
         this.walls = new Walls(map, '+');
+    }
+
+    public Level(GameState.SimpleLevel loadedLevel, int mapHeight) {
+        this.label = loadedLevel.label;
+        this.map = createEmptyMap(mapHeight);
+        this.hero = new Entity(loadedLevel.hero, map);
+        this.stone = new Entity(loadedLevel.stone, map);
+        this.hole = new Entity(loadedLevel.hole, map);
+        this.trap = new Entity(loadedLevel.trap, map);
+        this.walls = new Walls(loadedLevel.walls, map);
     }
 
     public void resetLevel() {
